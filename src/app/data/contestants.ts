@@ -91,11 +91,76 @@ const contestants: Contestant[] = [
 		thumbnailUrl: 'https://media.themoviedb.org/t/p/w220_and_h330_face/cEfftNuyt6Do2tLg0jWk3QhUlnM.jpg',
 		weight: 1,
 	},
-	// {
-	// 	name: 'Kong: Skull Island (2017)',
-	// 	thumbnailUrl: 'https://media.themoviedb.org/t/p/w220_and_h330_face/r2517Vz9EhDhj88qwbDVj8DCRZN.jpg',
-	// 	weight: 1,
-	// },
+	{
+		name: 'Kong: Skull Island (2017)',
+		thumbnailUrl: 'https://media.themoviedb.org/t/p/w220_and_h330_face/r2517Vz9EhDhj88qwbDVj8DCRZN.jpg',
+		weight: 1,
+	},
+	{
+		name: 'Godzilla (2014)',
+		thumbnailUrl: 'https://media.themoviedb.org/t/p/w220_and_h330_face/zokD6uxR2iWfYM3Y84yGJvnNTK7.jpg',
+		weight: 1,
+	},
+	{
+		name: 'Godzilla Minus One (2023)',
+		thumbnailUrl: 'https://www.themoviedb.org/t/p/w220_and_h330_face/hkxxMIGaiCTmrEArK7J56JTKUlB.jpg',
+		weight: 1,
+	},
+	{
+		name: 'Demon Slayer: Mugen Train (2020)',
+		thumbnailUrl: 'https://www.themoviedb.org/t/p/w220_and_h330_face/i78pnWKV3VEjJIoSU1td6DVPhqr.jpg',
+		weight: 1,
+	},
+	{
+		name: 'Wolf Children (2012)',
+		thumbnailUrl: 'https://www.themoviedb.org/t/p/original/9iIVipT06xhlo48qgjwDkqekC7q.jpg',
+		weight: 1,
+	},
+	{
+		name: 'Belle (2021)',
+		thumbnailUrl: 'https://www.themoviedb.org/t/p/w220_and_h330_face/fYHOD4pxZQk4rsP2tQrZI5uBlZV.jpg',
+		weight: 1,
+	},
+	{
+		name: 'I Am Legend (2007)',
+		thumbnailUrl: 'https://media.themoviedb.org/t/p/w220_and_h330_face/iPDkaSdKk2jRLTM65UOEoKtsIZ8.jpg',
+		weight: 1,
+	},
+	{
+		name: 'Watchmen (2009)',
+		thumbnailUrl: 'https://media.themoviedb.org/t/p/w220_and_h330_face/aVURelN3pM56lFM7Dgfs5TixcIf.jpg',
+		weight: 1,
+	},
+	{
+		name: 'Jojo Rabbit (2019)',
+		thumbnailUrl: 'https://www.themoviedb.org/t/p/w220_and_h330_face/7GsM4mtM0worCtIVeiQt28HieeN.jpg',
+		weight: 1,
+	},
+	{
+		name: 'The Raid: Redemption (2011)',
+		thumbnailUrl: 'https://www.themoviedb.org/t/p/w220_and_h330_face/A5KIsFWQMlvUqobZb2FInzOPlIp.jpg',
+		weight: 1,
+	},
+	{
+		name: 'Mad Max: Fury Road (2015)',
+		thumbnailUrl: 'https://www.themoviedb.org/t/p/w220_and_h330_face/hA2ple9q4qnwxp3hKVNhroipsir.jpg',
+		weight: 1,
+	},
+	{
+		name: 'All My Friends Hate Me (2021)',
+		thumbnailUrl: 'https://www.themoviedb.org/t/p/w220_and_h330_face/7j5ZLDGWQ4U3iAD2wLNhs0CjpuQ.jpg',
+		weight: 1,
+	},
+	{
+		name: 'RRR (2022)',
+		thumbnailUrl: 'https://media.themoviedb.org/t/p/w220_and_h330_face/ljHw5eIMnki3HekwkKwCCHsRSbH.jpg',
+		weight: 1,
+	},
+	{
+		name: 'Pandorum (2009)',
+		thumbnailUrl: 'https://www.themoviedb.org/t/p/original/mNMfa6r3pl0EzFIKEkVcxyr6Rc7.jpg',
+		weight: 1,
+	},
 		
 	/*
 	{
@@ -111,4 +176,5 @@ if (contestants.length % 2 !== 0) {
 	throw new Error('Odd number of contestants');
 }
 
+console.log('Contestants: ', contestants.length);
 export default contestants;

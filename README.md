@@ -1,6 +1,6 @@
 # TournamentHelper
 
-Single-elimination weighted tournament bracket simulator.
+Single-elimination weighted tournament bracket simulator. I'm not doing anything fancy with bye rounds or the like, so contestants must be factors of 2
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
 

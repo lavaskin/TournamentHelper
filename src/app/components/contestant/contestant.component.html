@@ -1,5 +1,5 @@
 <div class="container flex col gap-1"
-	[ngClass]="{'selected': isSelected, 'unselected': !isSelected}">
+	[ngClass]="{'selected': isSelected && canBeSelected, 'unselected': !isSelected}">
 	
 	<img [src]="contestant.thumbnailUrl"
 		(click)="onClick()">

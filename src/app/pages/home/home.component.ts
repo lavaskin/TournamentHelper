@@ -14,9 +14,15 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent {
 	private utils: Utils = new Utils();
+
 	public contestants: Contestant[] = [];
+	private passedContestants: Contestant[] = [];
+	public winner: Contestant | null = null;
 
 	public leftSideSelected: boolean | null = null;
+
+	public currentIndexOffset: number = 0;
+	private round: number = 1;
 
 	ngOnInit() {
 		const contestantWeightMap = new Map<number, Contestant[]>();
@@ -44,5 +50,41 @@ export class HomeComponent {
 		} else {
 			this.leftSideSelected = isLeftSide;
 		}
+	}
+
+	public nextRound() {
+		if (this.leftSideSelected === null) return;
+
+		// Add the winner to the passed contestants
+		this.passedContestants.push(
+			this.leftSideSelected ?
+				this.getLeftContestant() :
+				this.getRightContestant()
+		);
+		
+		this.currentIndexOffset += 2;
+		this.leftSideSelected = null;
+
+		// Check if there are no more contestants
+		if (this.currentIndexOffset >= this.contestants.length) {
+			// Check if there is only one contestant left (aka a winner)
+			if (this.passedContestants.length === 1) {
+				this.winner = this.passedContestants[0];
+			} else {
+				// Reset the contestants
+				this.contestants = this.passedContestants;
+				this.passedContestants = [];
+				this.currentIndexOffset = 0;
+				this.round++;
+				console.log('Moving on to round ' + this.round + ' with ' + this.contestants.length + ' contestants');
+			}
+		}
+	}
+
+	public getLeftContestant(): Contestant {
+		return this.contestants[this.currentIndexOffset];
+	}
+	public getRightContestant(): Contestant {
+		return this.contestants[this.currentIndexOffset + 1];
 	}
 }
