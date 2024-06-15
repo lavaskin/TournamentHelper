@@ -22,7 +22,8 @@ export class HomeComponent {
 	public leftSideSelected: boolean | null = null;
 
 	public currentIndexOffset: number = 0;
-	private round: number = 1;
+	public round: number = 1;
+	public roundAddendum: string | null = null;
 
 	ngOnInit() {
 		const contestantWeightMap = new Map<number, Contestant[]>();
@@ -77,6 +78,14 @@ export class HomeComponent {
 				this.currentIndexOffset = 0;
 				this.round++;
 				console.log('Moving on to round ' + this.round + ' with ' + this.contestants.length + ' contestants');
+
+				if (this.contestants.length === 8) {
+					this.roundAddendum = "Quarters";
+			 	} else if (this.contestants.length === 4) {
+					this.roundAddendum = "Semis's";
+				} else if (this.contestants.length === 2) {
+					this.roundAddendum = "Finals";
+				}
 			}
 		}
 	}
