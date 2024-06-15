@@ -26,23 +26,26 @@ export class HomeComponent {
 	public roundAddendum: string | null = null;
 
 	ngOnInit() {
-		const contestantWeightMap = new Map<number, Contestant[]>();
+		const lowWeightContestants = this.utils.shuffleArray(contestants.filter(c => c.weight === 1));
+		const highWeightContestants = this.utils.shuffleArray(contestants.filter(c => c.weight === 2));
 
-		// Add each contestant to the map based on their weight
-		contestants.forEach(contestant => {
-			if (!contestantWeightMap.has(contestant.weight)) {
-				contestantWeightMap.set(contestant.weight, []);
+		const shuffledLowWeightContestants = this.utils.shuffleArray(lowWeightContestants);
+
+		// Evenly distribute the high weight contestants between the low weight contestants
+		const lowHighSplit: number = Math.floor(lowWeightContestants.length / highWeightContestants.length);
+		lowWeightContestants.forEach((c, i) => {
+			this.contestants.push(c);
+
+			// If evenly divisible by the split, add a high weight contestant
+			if ((i+1) % lowHighSplit === 0) {
+				const highWeightContestant = highWeightContestants.pop();
+				if (highWeightContestant) {
+					this.contestants.push(highWeightContestant);
+				}
 			}
-
-			contestantWeightMap.get(contestant.weight)!.push(contestant);
 		});
 
-		// Randomize the contestants within each weight and add to the contestants array
-		contestantWeightMap.forEach(values => {
-			// Randomize the array
-			const randomized = this.utils.shuffleArray(values);
-			this.contestants.push(...randomized);
-		});
+		console.log(`Contestants (${this.contestants.length}):`, this.contestants);
 	}
 
 	public handleVote(isLeftSide: boolean) {
