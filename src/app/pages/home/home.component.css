@@ -1,6 +1,5 @@
 .page {
 	padding: 5rem;
-
 }
 
 p {
@@ -8,7 +7,7 @@ p {
 	color: var(--text)
 }
 
-h1 {
+.winner {
 	font-size: 5rem;
 	color: gold;
 }
