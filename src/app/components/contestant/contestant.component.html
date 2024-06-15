@@ -1,0 +1,8 @@
+<div class="container flex col gap-1"
+	[ngClass]="{'selected': isSelected, 'unselected': !isSelected}">
+	
+	<img [src]="contestant.thumbnailUrl"
+		(click)="onClick()">
+
+	<p [style.text-align]="isLeftSide ? 'left' : 'right'">{{ contestant.name }}</p>
+</div>

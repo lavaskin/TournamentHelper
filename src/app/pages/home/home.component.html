@@ -1,0 +1,23 @@
+<div class="page flex col">
+
+	<section class="flex row width-100 center gap-5">
+		<app-contestant
+			[contestant]="contestants[0]"
+			[isLeftSide]="true"
+			[isSelected]="leftSideSelected === true"
+			(onVote)="handleVote($event)"></app-contestant>
+
+		<p>VS</p>
+
+		<app-contestant
+			[contestant]="contestants[1]"
+			[isSelected]="leftSideSelected === false"
+			(onVote)="handleVote($event)"></app-contestant>
+	</section>
+
+	<button class="btn mt-5 mx-auto"
+		[ngClass]="{'disabled': leftSideSelected === null}">
+		Next
+	</button>
+
+</div>

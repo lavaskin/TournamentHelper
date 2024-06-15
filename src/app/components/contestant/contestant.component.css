@@ -1,0 +1,29 @@
+.container {
+	width: 35rem;
+	padding: 1rem;
+}
+
+.selected {
+	outline: 0.5rem solid var(--text);
+	border-radius: 1rem;
+}
+
+img {
+	width: 100%;
+	aspect-ratio: 2/3;
+	transition: 0.25s;
+}
+
+p {
+	font-size: 2.2rem;
+	color: var(--text);
+}
+
+/* Disable zoom hover when selected */
+.unselected img {
+	transition: 0.25s;
+}
+.unselected img:hover {
+	cursor: pointer;
+	transform: scale(1.01)
+}
