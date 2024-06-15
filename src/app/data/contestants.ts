@@ -27,9 +27,8 @@ const contestants: Contestant[] = [
 		weight: 1,
 	},
 	{
-		name: 'Heathers (1988)',
-		// can't find hq version anymore???
-		thumbnailUrl: 'https://media.themoviedb.org/t/p/w220_and_h330_face/pbK7GvYCrkqUevhGLcNuyja3ngm.jpg',
+		name: 'Evangelion: 1.0 You Are (Not) Alone (2007)',
+		thumbnailUrl: 'https://image.tmdb.org/t/p/original/pETU4GurpeEjBOM8oytMH0yNBHx.jpg',
 		weight: 1,
 	},
 	{
@@ -138,28 +137,28 @@ const contestants: Contestant[] = [
 		weight: 1,
 	},
 	{
-		name: 'The Raid: Redemption (2011)',
-		thumbnailUrl: 'https://image.tmdb.org/t/p/original/Abnm1Ws3JH0ReCfEhLMPwPcMcGO.jpg',
+		name: 'Rocky II (1979)',
+		thumbnailUrl: 'https://image.tmdb.org/t/p/original/nMaiiu0CzT77U4JZkUYV7KqdAjK.jpg',
 		weight: 1,
 	},
 	{
-		name: 'Mad Max: Fury Road (2015)',
-		thumbnailUrl: 'https://image.tmdb.org/t/p/original/hA2ple9q4qnwxp3hKVNhroipsir.jpg',
+		name: 'No One Will Save You (2023)',
+		thumbnailUrl: 'https://image.tmdb.org/t/p/original/ehGIDAMaYy6Eg0o8ga0oqflDjqW.jpg',
 		weight: 1,
 	},
 	{
-		name: 'All My Friends Hate Me (2021)',
-		thumbnailUrl: 'https://image.tmdb.org/t/p/original/7j5ZLDGWQ4U3iAD2wLNhs0CjpuQ.jpg',
+		name: 'The Room (2003)',
+		thumbnailUrl: 'https://image.tmdb.org/t/p/original/oGI3QSsY4XsmUzuNYUQBQDdjuaP.jpg',
 		weight: 1,
 	},
 	{
-		name: 'RRR (2022)',
-		thumbnailUrl: 'https://image.tmdb.org/t/p/original/nQKW2sabIClUsrQl3Y3i5LQgf5l.jpg',
+		name: 'World War Z (2013)',
+		thumbnailUrl: 'https://image.tmdb.org/t/p/original/1SWBSYJsnyhdNRfLI1T6RsCxAQ4.jpg',
 		weight: 1,
 	},
 	{
-		name: 'Pandorum (2009)',
-		thumbnailUrl: 'https://www.themoviedb.org/t/p/original/mNMfa6r3pl0EzFIKEkVcxyr6Rc7.jpg',
+		name: 'Die Hard (1988)',
+		thumbnailUrl: 'https://image.tmdb.org/t/p/original/7Bjd8kfmDSOzpmhySpEhkUyK2oH.jpg',
 		weight: 1,
 	},
 		
