@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Contestant } from '../../models/contestant';
-import contestants from '../../data/contestants';
 import Utils from '../../utils';
 import { ContestantComponent } from '../../components/contestant/contestant.component';
 import { CommonModule } from '@angular/common';
+import dinnerContestants from '../../data/dinner';
+import posterContestants from '../../data/posters';
 
 @Component({
 	selector: 'app-home',
@@ -26,10 +27,13 @@ export class HomeComponent {
 	public roundAddendum: string | null = null;
 
 	ngOnInit() {
-		const lowWeightContestants = this.utils.shuffleArray(contestants.filter(c => c.weight === 1));
-		const highWeightContestants = this.utils.shuffleArray(contestants.filter(c => c.weight === 2));
+		// CHANGE THIS TO SWAP WHICH TOURNAMENT IS BEING RAN
+		const rawContestants = dinnerContestants;
+		////////////////////////////////////////////////////
 
-		const shuffledLowWeightContestants = this.utils.shuffleArray(lowWeightContestants);
+		// Shuffle the contestants
+		const lowWeightContestants = this.utils.shuffleArray(rawContestants.filter(c => c.weight === 1));
+		const highWeightContestants = this.utils.shuffleArray(rawContestants.filter(c => c.weight === 2));
 
 		// Evenly distribute the high weight contestants between the low weight contestants
 		const lowHighSplit: number = Math.floor(lowWeightContestants.length / highWeightContestants.length);

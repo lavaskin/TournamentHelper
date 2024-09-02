@@ -1,6 +1,6 @@
 import { Contestant } from "../models/contestant";
 
-const contestants: Contestant[] = [
+const posterContestants: Contestant[] = [
 	{
 		name: 'Oldboy (2003)',
 		thumbnailUrl: 'https://image.tmdb.org/t/p/original/pWDtjs568ZfOTMbURQBYuT4Qxka.jpg',
@@ -172,9 +172,9 @@ const contestants: Contestant[] = [
 ];
 
 // Check for even number of contestants
-if (contestants.length % 2 !== 0) {
-	throw new Error('Odd number of contestants');
+if (posterContestants.length % 2 !== 0) {
+	throw new Error('Odd number of poster contestants');
 }
 
-console.log('Contestants: ', contestants.length);
-export default contestants;
+console.log('Poster Contestants: ', posterContestants.length);
+export default posterContestants;
