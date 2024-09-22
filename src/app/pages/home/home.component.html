@@ -9,8 +9,8 @@
 				(onVote)="handleVote($event)"></app-contestant>
 	
 				<div class="flex col gap-1 center">
-					<p>Round {{ round }}</p>
-					<p *ngIf="roundAddendum !== null">{{ roundAddendum }}</p>
+					<p class="round">Round {{ round }}</p>
+					<p class="subtext" *ngIf="roundAddendum !== null">{{ roundAddendum }}</p>
 				</div>	
 	
 			<app-contestant

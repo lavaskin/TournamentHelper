@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { Contestant } from '../../models/contestant';
+import { Component, inject } from '@angular/core';
+import { Contestant } from '../../models/contestant.model';
 import Utils from '../../utils';
 import { ContestantComponent } from '../../components/contestant/contestant.component';
 import { CommonModule } from '@angular/common';
-import dinnerContestants from '../../data/dinner';
-import posterContestants from '../../data/posters';
+import { ContestantService } from '../../services/contestant.service';
 
 @Component({
 	selector: 'app-home',
@@ -26,9 +25,11 @@ export class HomeComponent {
 	public round: number = 1;
 	public roundAddendum: string | null = null;
 
+	private _cService: ContestantService = inject(ContestantService);
+
 	ngOnInit() {
 		// CHANGE THIS TO SWAP WHICH TOURNAMENT IS BEING RAN
-		const rawContestants = dinnerContestants;
+		const rawContestants = this._cService.getContestants();
 		////////////////////////////////////////////////////
 
 		// Shuffle the contestants

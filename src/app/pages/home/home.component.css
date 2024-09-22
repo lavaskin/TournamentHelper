@@ -2,7 +2,7 @@
 	padding: 5rem;
 }
 
-p {
+.round {
 	font-size: 3rem;
 	color: var(--text)
 }

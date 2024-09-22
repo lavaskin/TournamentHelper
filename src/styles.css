@@ -4,6 +4,11 @@
 	--text: #f8f8ff;
 }
 
+.subtext {
+	color: #c5c5c5;
+	font-size: 1.75rem;
+}
+
 .btn {
 	cursor: pointer;
 	width: 15rem;
