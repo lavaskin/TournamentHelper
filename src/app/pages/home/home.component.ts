@@ -90,7 +90,7 @@ export class HomeComponent {
 				if (this.contestants.length === 8) {
 					this.roundAddendum = "Quarters";
 			 	} else if (this.contestants.length === 4) {
-					this.roundAddendum = "Semis's";
+					this.roundAddendum = "Semi's";
 				} else if (this.contestants.length === 2) {
 					this.roundAddendum = "Finals";
 				}
