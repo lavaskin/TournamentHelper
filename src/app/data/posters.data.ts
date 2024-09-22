@@ -1,4 +1,4 @@
-import { Contestant } from "../models/contestant";
+import { Contestant } from "../models/contestant.model";
 
 const posterContestants: Contestant[] = [
 	{
