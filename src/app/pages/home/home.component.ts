@@ -28,9 +28,8 @@ export class HomeComponent {
 	private _cService: ContestantService = inject(ContestantService);
 
 	ngOnInit() {
-		// CHANGE THIS TO SWAP WHICH TOURNAMENT IS BEING RAN
+		// Get contestants specified by the service
 		const rawContestants = this._cService.getContestants();
-		////////////////////////////////////////////////////
 
 		// Shuffle the contestants
 		const lowWeightContestants = this.utils.shuffleArray(rawContestants.filter(c => c.weight === 1));
