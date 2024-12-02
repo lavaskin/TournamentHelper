@@ -171,10 +171,4 @@ const posterContestants: Contestant[] = [
 	*/
 ];
 
-// Check for even number of contestants
-if (posterContestants.length % 2 !== 0) {
-	throw new Error('Odd number of poster contestants');
-}
-
-console.log('Poster Contestants: ', posterContestants.length);
 export default posterContestants;

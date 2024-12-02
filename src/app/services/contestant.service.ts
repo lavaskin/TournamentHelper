@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Contestant } from "../models/contestant.model";
 import { Tournament } from "../models/tournament.model";
-import { animalTournamnent } from "../data/tournaments.data";
+import { dinnerTournament } from "../data/tournaments.data";
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ContestantService {
 	// CHANGE THIS TO SWAP WHICH TOURNAMENT IS BEING RAN
-	private tournament: Tournament = animalTournamnent;
+	private tournament: Tournament = dinnerTournament;
 
 	public getContestants(): Contestant[] {
 		// Check if the amount of contestants is, 2, 4, 81, 16, 32, 64, 128, etc. (power of 2)
