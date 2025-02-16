@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Contestant } from '../../models/contestant.model';
-import Utils from '../../utils';
 import { ContestantComponent } from '../../components/contestant/contestant.component';
 import { CommonModule } from '@angular/common';
-import { ContestantService } from '../../services/contestant.service';
-import { RouterModule } from '@angular/router';
+import { TournamentService } from '../../services/tournament.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
 	selector: 'page-tournament',
@@ -14,8 +13,6 @@ import { RouterModule } from '@angular/router';
 	styleUrl: './tournament.component.css'
 })
 export class TournamentComponent {
-	private utils: Utils = new Utils();
-
 	public contestants: Contestant[] = [];
 	private passedContestants: Contestant[] = [];
 	public winner: Contestant | null = null;
@@ -26,12 +23,17 @@ export class TournamentComponent {
 	public round: number = 1;
 	public roundAddendum: string | null = null;
 
-	private _cService: ContestantService = inject(ContestantService);
+	private _tService: TournamentService = inject(TournamentService);
+	private _router: Router = inject(Router);
 
 	ngOnInit() {
 		// Get contestants specified by the service
-		this.contestants = this._cService.getContestants();
+		this.contestants = this._tService.getContestants();
 		console.log(`Contestants (${this.contestants.length}):`, this.contestants);
+
+		if (this.contestants.length === 0) {
+			this._router.navigate(['/']);
+		}
 	}
 
 	public handleVote(isLeftSide: boolean) {
