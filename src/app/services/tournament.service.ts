@@ -19,7 +19,7 @@ export class TournamentService {
 
 	public getContestants(): Contestant[] {
 		if (this.validateTournament() === false) {
-			throw new Error('Invalid tournament');
+			return [];
 		}
 		
 		// Deep copy the contestants
