@@ -4,8 +4,15 @@ import dinnerContestants from "./dinner.data";
 import posterContestants from "./posters.data";
 import waifuContestants from "./waifus.data";
 
+const posterTournament: Tournament = {
+	title: "Movie Poster Tournament",
+	contestants: posterContestants,
+	thumbnailPath: 'poster',
+	shuffle: true,
+}
+
 const animalTournamnent: Tournament = {
-	title: "Animal 1v1's",
+	title: "Animal Battle Royale",
 	contestants: animalContestants,
 	thumbnailPath: 'animals',
 	shuffle: true,
@@ -18,13 +25,6 @@ const dinnerTournament: Tournament = {
 	shuffle: true,
 }
 
-const posterTournament: Tournament = {
-	title: "Movie Poster Tournament",
-	contestants: posterContestants,
-	thumbnailPath: 'poster',
-	shuffle: true,
-}
-
 const waifuTournament: Tournament = {
 	title: "Ultimate Waifu Tournament",
 	contestants: waifuContestants,
@@ -33,8 +33,8 @@ const waifuTournament: Tournament = {
 }
 
 export {
+	posterTournament,
 	animalTournamnent,
 	dinnerTournament,
-	posterTournament,
 	waifuTournament,
 };
