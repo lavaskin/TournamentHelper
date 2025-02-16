@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../services/tournament.service';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
 	selector: 'page-tournament',
@@ -24,6 +25,7 @@ export class TournamentComponent {
 	public round: number = 1;
 	public roundAddendum: string | null = null;
 
+	private _aService: AlertService = inject(AlertService);
 	private _tService: TournamentService = inject(TournamentService);
 	private _router: Router = inject(Router);
 
@@ -33,6 +35,7 @@ export class TournamentComponent {
 		console.log(`Contestants (${this.contestants.length}):`, this.contestants);
 
 		if (this.contestants.length === 0) {
+			this._aService.showAlert('No contestants to display');
 			this._router.navigate(['/']);
 		}
 

@@ -1,6 +1,8 @@
 * {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
+	--background: #090909;
+
 	--text: #f8f8ff;
 	--subtext: #c5c5c5;
 }
@@ -76,6 +78,9 @@
 }
 .h3 {
 	font-size: 2rem;
+}
+.p {
+	font-size: 1.5rem;
 }
 .subtext { color: #c5c5c5; }
 .gold { color: gold; }
