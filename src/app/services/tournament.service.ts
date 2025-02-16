@@ -14,11 +14,16 @@ export class TournamentService {
 
 	public setTournament(tournament: Tournament): void {
 		this._tournament = tournament;
+		this.storeTournament(tournament);
 	}
 
 	public getContestants(): Contestant[] {
 		if (!this._tournament) {
-			return [];
+			this._tournament = this.retrieveTournament();
+
+			if (!this._tournament) {
+				throw new Error('No tournament found');
+			}
 		}
 
 		// Check if the amount of contestants is, 2, 4, 81, 16, 32, 64, 128, etc. (power of 2)
@@ -80,5 +85,17 @@ export class TournamentService {
 		});
 
 		return shuffledContestants;
+	}
+
+	private storeTournament(tournament: Tournament): void {
+		localStorage.setItem('tournament', JSON.stringify(tournament));
+	}
+	private retrieveTournament(): Tournament | undefined {
+		const tournament = localStorage.getItem('tournament');
+		if (!tournament) {
+			return undefined;
+		}
+
+		return JSON.parse(tournament);
 	}
 }
