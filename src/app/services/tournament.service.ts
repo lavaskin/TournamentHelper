@@ -18,33 +18,50 @@ export class TournamentService {
 	}
 
 	public getContestants(): Contestant[] {
-		if (!this._tournament) {
-			this._tournament = this.retrieveTournament();
-
-			if (!this._tournament) {
-				throw new Error('No tournament found');
-			}
+		if (this.validateTournament() === false) {
+			throw new Error('Invalid tournament');
 		}
-
-		// Check if the amount of contestants is, 2, 4, 81, 16, 32, 64, 128, etc. (power of 2)
-		const powerOfTwo = Math.log2(this._tournament.contestants.length);
-		if (!Number.isInteger(powerOfTwo)) {
-			throw new Error('Contestants must be a power of 2');
-		}
-
+		
 		// Deep copy the contestants
-		let contestants: Contestant[] = JSON.parse(JSON.stringify(this._tournament.contestants));
+		let contestants: Contestant[] = JSON.parse(JSON.stringify(this._tournament!.contestants));
 
 		// Fix Data
 		this.fixNullWeights(contestants);
 		this.fixLocalThumbnails(contestants);
 
 		// Shuffle the contestants if tournament shuffle is enabled (and deep copy results)
-		if (this._tournament.shuffle == true) {
+		if (this._tournament!.shuffle == true) {
 			contestants = JSON.parse(JSON.stringify(this.shuffleArray(contestants)));
 		}
 
 		return contestants;
+	}
+
+	private validateTournament(): boolean {
+		// Check that the tournament exists
+		if (!this._tournament) {
+			this._tournament = this.retrieveTournament();
+
+			if (!this._tournament) {
+				console.error('No tournament found');
+				return false;
+			}
+		}
+
+		// Check it has contestants
+		if (!this._tournament!.contestants || this._tournament!.contestants.length === 0) {
+			console.error('No contestants found');
+			return false;
+		}
+
+		// Check if the amount of contestants is, 2, 4, 81, 16, 32, 64, 128, etc. (power of 2)
+		const powerOfTwo = Math.log2(this._tournament!.contestants.length);
+		if (!Number.isInteger(powerOfTwo)) {
+			console.error('Contestants must be a power of 2');
+			return false;
+		}
+
+		return true;
 	}
 
 	private fixNullWeights(contestants: Contestant[]) {
