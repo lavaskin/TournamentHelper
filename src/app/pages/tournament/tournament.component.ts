@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 	standalone: true,
 	imports: [ContestantComponent, CommonModule, RouterModule],
 	templateUrl: './tournament.component.html',
-	styleUrl: './tournament.component.css'
+	// styleUrl: './tournament.component.scss'
 })
 export class TournamentComponent {
 	public contestants: Contestant[] = [];

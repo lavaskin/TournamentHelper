@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 	standalone: true,
 	imports: [CommonModule],
 	templateUrl: './contestant.component.html',
-	styleUrl: './contestant.component.css'
+	styleUrl: './contestant.component.scss'
 })
 export class ContestantComponent {
 	@Input() public contestant!: Contestant;
