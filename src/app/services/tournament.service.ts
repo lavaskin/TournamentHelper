@@ -1,19 +1,26 @@
 import { Injectable } from "@angular/core";
 import { Contestant } from "../models/contestant.model";
 import { Tournament } from "../models/tournament.model";
-import { dinnerTournament, waifuTournament } from "../data/tournaments.data";
 import Utils from "../utils";
 
 @Injectable({
 	providedIn: 'root',
 })
-export class ContestantService {
+export class TournamentService {
 	// CHANGE THIS TO SWAP WHICH TOURNAMENT IS BEING RAN
-	private _tournament: Tournament = dinnerTournament;
+	private _tournament?: Tournament;
 
 	private _utils: Utils = new Utils();
 
+	public setTournament(tournament: Tournament): void {
+		this._tournament = tournament;
+	}
+
 	public getContestants(): Contestant[] {
+		if (!this._tournament) {
+			return [];
+		}
+
 		// Check if the amount of contestants is, 2, 4, 81, 16, 32, 64, 128, etc. (power of 2)
 		const powerOfTwo = Math.log2(this._tournament.contestants.length);
 		if (!Number.isInteger(powerOfTwo)) {
@@ -21,22 +28,22 @@ export class ContestantService {
 		}
 
 		// Deep copy the contestants
-		const contestants: Contestant[] = JSON.parse(JSON.stringify(this._tournament.contestants));
+		let contestants: Contestant[] = JSON.parse(JSON.stringify(this._tournament.contestants));
 
 		// Fix Data
 		this.fixNullWeights(contestants);
 		this.fixLocalThumbnails(contestants);
 
-		// Shuffle the contestants if tournament shuffle is enabled
+		// Shuffle the contestants if tournament shuffle is enabled (and deep copy results)
 		if (this._tournament.shuffle == true) {
-			this.shuffleArray(contestants);
+			contestants = JSON.parse(JSON.stringify(this.shuffleArray(contestants)));
 		}
 
 		return contestants;
 	}
 
 	private fixNullWeights(contestants: Contestant[]) {
-		this._tournament.contestants.forEach(c => {
+		contestants.forEach(c => {
 			if (c.weight === undefined) {
 				c.weight = 1;
 			}
@@ -44,14 +51,14 @@ export class ContestantService {
 	}
 
 	private fixLocalThumbnails(contestants: Contestant[]) {
-		this._tournament.contestants.forEach(c => {
+		contestants.forEach(c => {
 			if (c.thumbnailUrl.includes('http')) return;
 
-			c.thumbnailUrl = `/contestants/${this._tournament.thumbnailPath}/${c.thumbnailUrl}`;
+			c.thumbnailUrl = `/contestants/${this._tournament!.thumbnailPath}/${c.thumbnailUrl}`;
 		});
 	}
 
-	private shuffleArray(contestants: Contestant[]): void {
+	private shuffleArray(contestants: Contestant[]): Contestant[] {
 		const shuffledContestants: Contestant[] = [];
 		
 		// Shuffle the contestants
@@ -72,6 +79,6 @@ export class ContestantService {
 			}
 		});
 
-		this._tournament.contestants = shuffledContestants;
+		return shuffledContestants;
 	}
 }
