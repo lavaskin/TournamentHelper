@@ -1,0 +1,13 @@
+.page {
+	padding: 5rem;
+}
+
+.round {
+	font-size: 3rem;
+	color: var(--text)
+}
+
+.winner {
+	font-size: 5rem;
+	color: gold;
+}

@@ -1,36 +1,3 @@
 <div class="page flex col">
-
-	@if (!winner) {
-		<section class="flex row width-100 center gap-5">
-			<app-contestant
-				[contestant]="getLeftContestant()"
-				[isLeftSide]="true"
-				[isSelected]="leftSideSelected === true"
-				(onVote)="handleVote($event)"></app-contestant>
-	
-				<div class="flex col gap-1 center">
-					<p class="round text-center">Round {{ round }}</p>
-					<p class="subtext" *ngIf="roundAddendum !== null">{{ roundAddendum }}</p>
-				</div>	
-	
-			<app-contestant
-				[contestant]="getRightContestant()"
-				[isSelected]="leftSideSelected === false"
-				(onVote)="handleVote($event)"></app-contestant>
-		</section>
-
-		<button class="btn mt-5 mx-auto"
-			[ngClass]="{'disabled': leftSideSelected === null}"
-			(click)="nextRound()">Next</button>
-	} @else {
-		<section class="flex col width-100 center gap-5">
-			<h1 class="winner">Winner!</h1>
-
-			<app-contestant
-				[isLeftSide]="true"
-				[contestant]="winner"
-				[canBeSelected]="false"></app-contestant>
-		</section>
-	}
-
+	<p>hi</p>
 </div>
