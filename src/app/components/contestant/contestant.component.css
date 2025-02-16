@@ -1,6 +1,5 @@
 .container {
 	width: 35rem;
-	padding: 1rem;
 }
 
 .selected {
@@ -15,7 +14,6 @@ img {
 
 p {
 	font-size: 2.2rem;
-	color: var(--text);
 }
 
 /* Disable zoom hover when selected */
