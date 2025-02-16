@@ -9,8 +9,8 @@
 				(onVote)="handleVote($event)"></app-contestant>
 	
 				<div class="flex col gap-1 center">
-					<p class="round text-center">Round {{ round }}</p>
-					<p class="subtext" *ngIf="roundAddendum !== null">{{ roundAddendum }}</p>
+					<p class="h1 text-center">Round {{ round }}</p>
+					<p class="h3 subtext" *ngIf="roundAddendum !== null">{{ roundAddendum }}</p>
 				</div>	
 	
 			<app-contestant
@@ -24,7 +24,7 @@
 			(click)="nextRound()">Next</button>
 	} @else {
 		<section class="flex col width-100 center gap-5">
-			<h1 class="winner">Winner!</h1>
+			<p class="h1 gold">Winner!</p>
 
 			<app-contestant
 				[isLeftSide]="true"

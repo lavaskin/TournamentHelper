@@ -1,11 +1,11 @@
-<div class="page flex col center pa-5 gap-2">
+<div class="page flex col center pa-5 gap-5">
 	<div>
-		<h1>TournamentHelper</h1>
-		<h2>by lavaskin</h2>
+		<p class="h1">TournamentHelper</p>
+		<p class="h2 subtext">by lavaskin</p>
 	</div>
 
 	<div class="flex col gap-1">
-		<p>Tournaments:</p>
+		<p class="h3">Tournaments:</p>
 		@for(t of tournaments; track $index) {
 			<button class="btn" (click)="selectTournament(t)">
 				{{ t.title }}
