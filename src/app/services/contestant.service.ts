@@ -20,19 +20,22 @@ export class ContestantService {
 			throw new Error('Contestants must be a power of 2');
 		}
 
+		// Deep copy the contestants
+		const contestants: Contestant[] = JSON.parse(JSON.stringify(this._tournament.contestants));
+
 		// Fix Data
-		this.fixNullWeights();
-		this.fixLocalThumbnails();
+		this.fixNullWeights(contestants);
+		this.fixLocalThumbnails(contestants);
 
 		// Shuffle the contestants if tournament shuffle is enabled
 		if (this._tournament.shuffle == true) {
-			this.shuffleArray(this._tournament.contestants);
+			this.shuffleArray(contestants);
 		}
 
-		return this._tournament.contestants;
+		return contestants;
 	}
 
-	private fixNullWeights() {
+	private fixNullWeights(contestants: Contestant[]) {
 		this._tournament.contestants.forEach(c => {
 			if (c.weight === undefined) {
 				c.weight = 1;
@@ -40,7 +43,7 @@ export class ContestantService {
 		});
 	}
 
-	private fixLocalThumbnails() {
+	private fixLocalThumbnails(contestants: Contestant[]) {
 		this._tournament.contestants.forEach(c => {
 			if (c.thumbnailUrl.includes('http')) return;
 
