@@ -4,12 +4,10 @@
 		<p class="h2 subtext">by lavaskin</p>
 	</div>
 
-	<div class="flex col gap-1">
+	<div class="flex col gap-1 center">
 		<p class="h3">Tournaments:</p>
 		@for(t of tournaments; track $index) {
-			<button class="btn" (click)="selectTournament(t)">
-				{{ t.title }}
-			</button>
+			<app-button [label]="t.title" (click)="selectTournament(t)"></app-button>
 		}
 	</div>
 </div>

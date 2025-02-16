@@ -4,11 +4,12 @@ import { ContestantComponent } from '../../components/contestant/contestant.comp
 import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../services/tournament.service';
 import { Router, RouterModule } from '@angular/router';
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
 	selector: 'page-tournament',
 	standalone: true,
-	imports: [ContestantComponent, CommonModule, RouterModule],
+	imports: [ContestantComponent, ButtonComponent, CommonModule, RouterModule],
 	templateUrl: './tournament.component.html',
 	// styleUrl: './tournament.component.scss'
 })

@@ -1,4 +1,4 @@
-<div class="page flex col pa-5">
+<div class="page flex col gap-5 pa-5">
 
 	@if (!winner) {
 		<section class="flex row width-100 center gap-5">
@@ -19,9 +19,10 @@
 				(onVote)="handleVote($event)"></app-contestant>
 		</section>
 
-		<button class="btn mt-5 mx-auto"
-			[ngClass]="{'disabled': leftSideSelected === null}"
-			(click)="nextRound()">Next</button>
+		<app-button label="Next"
+			(click)="nextRound()"
+			[disabled]="leftSideSelected === null"
+			class="mx-auto"></app-button>
 	} @else {
 		<section class="flex col width-100 center gap-5">
 			<p class="h1 gold">Winner!</p>
@@ -31,8 +32,7 @@
 				[contestant]="winner"
 				[canBeSelected]="false"></app-contestant>
 
-			<button class="btn"
-				routerLink="home">Home</button>
+			<app-button label="Home" routerLink="home"></app-button>
 		</section>
 	}
 

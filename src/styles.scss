@@ -9,32 +9,11 @@
 	color: var(--text);
 }
 
-.btn {
-	cursor: pointer;
-	min-width: 15rem;
-	padding: 1rem 2rem;
-	font-size: 2rem;
-	border-radius: 0.5rem;
-	border: 0.5rem solid var(--text);
-	background-color: transparent;
-	color: var(--text);
-	transition: 0.5s;
-	text-transform: uppercase;
-}
-.btn:active:not(.disabled) {
-	transform: scale(0.95);
-}
-.btn.disabled {
-	cursor: not-allowed;
-	opacity: 0.25;
-}
-
 .flex { display: flex; }
 
 .row { flex-direction: row; }
 .col { flex-direction: column; }
 .center { align-items: center; justify-content: center; }
-.text-center { text-align: center; }
 
 .mt-1 { margin-top: 1rem; }
 .mt-2 { margin-top: 2rem; }
@@ -98,3 +77,4 @@
 }
 .subtext { color: #c5c5c5; }
 .gold { color: gold; }
+.text-center { text-align: center; }
