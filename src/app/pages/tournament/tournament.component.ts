@@ -35,6 +35,12 @@ export class TournamentComponent {
 		if (this.contestants.length === 0) {
 			this._router.navigate(['/']);
 		}
+
+		// Pre-load all the contestant images
+		this.contestants.forEach(contestant => {
+			const img = new Image();
+			img.src = contestant.thumbnailUrl;
+		});
 	}
 
 	public handleVote(isLeftSide: boolean) {
