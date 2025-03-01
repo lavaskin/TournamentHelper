@@ -8,45 +8,46 @@ button {
 	background-color: transparent;
 	transition: 0.5s;
 	overflow: hidden;
-}
-button:active:not(.disabled) {
-	transform: scale(0.95);
-}
 
-span {
-	position: relative; // need this to fix the stacking context
-	z-index: 10;
-	color: var(--text);
-	text-transform: uppercase;
-	transition: 0.5s;
-	font-size: 2rem;
-}
+	&:active:not(.disabled) {
+		transform: scale(0.95);
+	}
 
-button::before {
-	content: '';
-	position: absolute;
+	&:hover:not(.disabled) {
+		span {
+			color: var(--background);
+		}
 
-	// center
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 0;
-	aspect-ratio: 1/1;
-	border-radius: 50%;
-	background-color: var(--text);
-	transition: 0.5s;
-	z-index: 1;
-}
+		&::before {
+			width: 110%;
+		}
+	}
 
-.disabled {
-	cursor: not-allowed;
-	opacity: 0.25;
-}
+	&.disabled {
+		cursor: not-allowed;
+		opacity: 0.25;
+	}
 
-button:hover:not(.disabled) span{
-	color: var(--background);
-}
+	span {
+		position: relative; // needed for stacking context
+		z-index: 10;
+		color: var(--text);
+		text-transform: uppercase;
+		transition: 0.5s;
+		font-size: 2rem;
+	}
 
-button:hover:not(.disabled)::before {
-	width: 110%;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 0;
+		aspect-ratio: 1/1;
+		border-radius: 50%;
+		background-color: var(--text);
+		transition: 0.5s;
+		z-index: 1;
+	}
 }
