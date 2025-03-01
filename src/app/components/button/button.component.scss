@@ -1,20 +1,52 @@
 button {
+	position: relative;
 	cursor: pointer;
 	min-width: 15rem;
 	padding: 1rem 2rem;
-	font-size: 2rem;
 	border-radius: 0.5rem;
 	border: 0.5rem solid var(--text);
 	background-color: transparent;
-	color: var(--text);
 	transition: 0.5s;
-	text-transform: uppercase;
+	overflow: hidden;
 }
 button:active:not(.disabled) {
 	transform: scale(0.95);
 }
 
+span {
+	position: relative; // need this to fix the stacking context
+	z-index: 10;
+	color: var(--text);
+	text-transform: uppercase;
+	transition: 0.5s;
+	font-size: 2rem;
+}
+
+button::before {
+	content: '';
+	position: absolute;
+
+	// center
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 0;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	background-color: var(--text);
+	transition: 0.5s;
+	z-index: 1;
+}
+
 .disabled {
 	cursor: not-allowed;
 	opacity: 0.25;
+}
+
+button:hover:not(.disabled) span{
+	color: var(--background);
+}
+
+button:hover:not(.disabled)::before {
+	width: 110%;
 }
