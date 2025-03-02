@@ -32,18 +32,11 @@ export class TournamentComponent {
 	ngOnInit() {
 		// Get contestants specified by the service
 		this.contestants = this._tService.getContestants();
-		console.log(`Contestants (${this.contestants.length}):`, this.contestants);
 
 		if (this.contestants.length === 0) {
 			this._aService.showAlert('No contestants to display');
 			this._router.navigate(['/']);
 		}
-
-		// Pre-load all the contestant images
-		this.contestants.forEach(contestant => {
-			const img = new Image();
-			img.src = contestant.thumbnailUrl;
-		});
 	}
 
 	public handleVote(isLeftSide: boolean) {
