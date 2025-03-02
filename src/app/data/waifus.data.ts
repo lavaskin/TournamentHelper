@@ -42,7 +42,7 @@ const waifuContestants: Contestant[] = [
 	// Disney (https://www.youtube.com/watch?v=Y3XcNUiOfXA
 	{
 		name: 'GoGo Tomago (Big Hero 6)',
-		thumbnailUrl: 'disney/tomago.png',
+		thumbnailUrl: 'disney/gogo.png',
 	},
 	{
 		name: 'Megara (Hercules)',
