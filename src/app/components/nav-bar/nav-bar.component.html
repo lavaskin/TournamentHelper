@@ -1,0 +1,20 @@
+<nav>
+	<ul class="flex row gap-1">
+		<li class="clickable"
+			(click)="flipCoin()"
+			[ngClass]="{ disabled: showCoin }">
+
+			<span>flip a coin</span>
+		</li>
+
+		<li><span>/</span></li>
+		
+		<li class="clickable">
+			<span routerLink="/">home</span>
+		</li>
+	</ul>
+</nav>
+
+@if (showCoin) {
+	<div class="coin">{{ coinText }}</div>
+}
