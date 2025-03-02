@@ -20,11 +20,13 @@ export class NavBarComponent {
 
 	public goHome(): void {
 		// Check if on the /tournament route
-		if (window.location.pathname === '/tournament') {
+		if (this._router.url === '/tournament') {
 			// If so, pop up a confirmation dialog
 			const confirmed = confirm('Are you sure you want to leave the tournament?');
 			if (confirmed) {
 				this._router.navigate(['/']);
+			} else {
+				return;
 			}
 		}
 		
