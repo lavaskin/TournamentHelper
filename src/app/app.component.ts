@@ -2,13 +2,16 @@ import { Component, ElementRef, inject, Renderer2, ViewChild } from '@angular/co
 import { RouterOutlet } from '@angular/router';
 import { AlertService } from './services/alert.service';
 import { CommonModule } from '@angular/common';
+import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [CommonModule, RouterOutlet],
+	imports: [CommonModule, RouterOutlet, NavBarComponent],
 	template:`
 		<div class="app-wrapper">
+			<app-nav-bar></app-nav-bar>
+
 			<router-outlet></router-outlet>
 
 			<!-- Global Alert Display -->

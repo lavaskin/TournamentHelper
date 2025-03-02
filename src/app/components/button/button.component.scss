@@ -23,11 +23,6 @@ button {
 		}
 	}
 
-	&.disabled {
-		cursor: not-allowed;
-		opacity: 0.25;
-	}
-
 	span {
 		position: relative; // needed for stacking context
 		z-index: 10;
