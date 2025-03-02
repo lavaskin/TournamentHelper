@@ -11,8 +11,8 @@ const waifuContestants: Contestant[] = [
 		thumbnailUrl: 'pokemon/elesa.png',
 	},
 	{
-		name: 'Marine (Pokémon)',
-		thumbnailUrl: 'pokemon/marine.png',
+		name: 'Marnie (Pokémon)',
+		thumbnailUrl: 'pokemon/marnie.png',
 	},
 	{
 		name: 'Misty (Pokémon)',
@@ -86,7 +86,7 @@ const waifuContestants: Contestant[] = [
 	// Battle Cats (https://www.youtube.com/watch?v=HXd9V7wRpDg)
 	{
 		name: 'Mina (Battle Cats)',
-		thumbnailUrl: 'battlecats/yelan.png',
+		thumbnailUrl: 'battlecats/mina.png',
 	},
 	{
 		name: 'Twinstars (Battle Cats)',
