@@ -37,6 +37,12 @@ export class TournamentComponent {
 			this._aService.showAlert('No contestants to display');
 			this._router.navigate(['/']);
 		}
+
+		// Check if there are a factor of 2 num of contestants
+		if (this.contestants.length % 2 !== 0) {
+			this._aService.showAlert(`Number of contestants must be a factor of 2 (${this.contestants.length} given)`);
+			this._router.navigate(['/']);
+		}
 	}
 
 	public handleVote(isLeftSide: boolean) {
