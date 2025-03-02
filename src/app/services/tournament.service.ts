@@ -1,7 +1,8 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Contestant } from "../models/contestant.model";
 import { Tournament } from "../models/tournament.model";
 import Utils from "../utils";
+import { AlertService } from "./alert.service";
 
 @Injectable({
 	providedIn: 'root',
@@ -11,6 +12,7 @@ export class TournamentService {
 	private _tournament?: Tournament;
 
 	private _utils: Utils = new Utils();
+	private _sAlert: AlertService = inject(AlertService);
 
 	public setTournament(tournament: Tournament): void {
 		this._tournament = tournament;
@@ -43,21 +45,21 @@ export class TournamentService {
 			this._tournament = this.retrieveTournament();
 
 			if (!this._tournament) {
-				console.error('No tournament found');
+				this._sAlert.show('No tournament found');
 				return false;
 			}
 		}
 
 		// Check it has contestants
 		if (!this._tournament!.contestants || this._tournament!.contestants.length === 0) {
-			console.error('No contestants found');
+			this._sAlert.show('No contestants found');
 			return false;
 		}
 
 		// Check if the amount of contestants is, 2, 4, 81, 16, 32, 64, 128, etc. (power of 2)
 		const powerOfTwo = Math.log2(this._tournament!.contestants.length);
 		if (!Number.isInteger(powerOfTwo)) {
-			console.error('Contestants must be a power of 2');
+			this._sAlert.show('Contestants must be a power of 2');
 			return false;
 		}
 

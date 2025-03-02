@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../services/tournament.service';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
-import { AlertService } from '../../services/alert.service';
 
 @Component({
 	selector: 'page-tournament',
@@ -25,7 +24,6 @@ export class TournamentComponent {
 	public round: number = 1;
 	public roundAddendum: string | null = null;
 
-	private _sAlert: AlertService = inject(AlertService);
 	private _sTournament: TournamentService = inject(TournamentService);
 	private _router: Router = inject(Router);
 
@@ -34,13 +32,6 @@ export class TournamentComponent {
 		this.contestants = this._sTournament.getContestants();
 
 		if (this.contestants.length === 0) {
-			this._sAlert.showAlert('No contestants to display');
-			this._router.navigate(['/']);
-		}
-
-		// Check if there are a factor of 2 num of contestants
-		if (this.contestants.length % 2 !== 0) {
-			this._sAlert.showAlert(`Number of contestants must be a factor of 2 (${this.contestants.length} given)`);
 			this._router.navigate(['/']);
 		}
 	}

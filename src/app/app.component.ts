@@ -15,14 +15,15 @@ import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 			<router-outlet></router-outlet>
 
 			<!-- Global Alert Display -->
-			<div #alert
-				class="alert p"
-				*ngIf="showAlert"
-				(click)="closeAlert()"
-				tabindex="0">
-				
-				<span>{{ alertMessage }}</span>
-			</div>
+			 @if (showAlert) {
+				<div #alert
+					class="alert p"
+					(click)="closeAlert()"
+					tabindex="0">
+					
+					<span>{{ alertMessage }}</span>
+				</div>
+			 }
 		</div>
 	`,
 	styles: `
