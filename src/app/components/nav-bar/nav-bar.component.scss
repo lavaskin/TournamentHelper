@@ -29,4 +29,22 @@ ul {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	&.finished {
+		color: var(--background);
+		background-color: gold;
+	}
+
+	&:not(.finished) {
+		animation: coin-spin 1s linear infinite;
+	}
+
+	@keyframes coin-spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
 }

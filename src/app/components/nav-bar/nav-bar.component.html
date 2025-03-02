@@ -16,5 +16,9 @@
 </nav>
 
 @if (showCoin) {
-	<div class="coin">{{ coinText }}</div>
+	<div class="coin"
+		[ngClass]="{ finished: finishedSpining }">
+		
+		{{ coinText }}
+	</div>
 }

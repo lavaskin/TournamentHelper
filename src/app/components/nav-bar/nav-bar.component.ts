@@ -13,7 +13,8 @@ const COIN_FLIP_SPEED = 100; // ms
 })
 export class NavBarComponent {
 	public showCoin: boolean = false;
-	public coinText: string = 'L';
+	public finishedSpining: boolean = false;
+	public coinText: string = 'X';
 
 	public flipCoin(): void {
 		if (this.showCoin) return;
@@ -21,8 +22,13 @@ export class NavBarComponent {
 		// Random between 3 - 5 seconds
 		const coinSpinTime = (Math.random() * 2) + 3;
 
+		// Roll the outcome prior to spinning
+		const predecidedText = Math.random() > 0.5 ? 'L' : 'R';
+		// Choose a random side to show while spinning
+		this.coinText = Math.random() > 0.5 ? 'L' : 'R';
+
+		this.finishedSpining = false;
 		this.showCoin = true;
-		this.coinText = 'L';
 
 		// Every COIN_FLIP_SPEED, flip the coin
 		const flipInterval = setInterval(() => {
@@ -31,6 +37,8 @@ export class NavBarComponent {
 
 		setTimeout(() => {
 			clearInterval(flipInterval);
+			this.coinText = predecidedText;
+			this.finishedSpining = true;
 			console.log('Coin Flipped: ', this.coinText);
 
 			// Hide the coin in 5s
