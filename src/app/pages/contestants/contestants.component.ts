@@ -18,17 +18,17 @@ export class ContestantsComponent {
 	public contestants: Contestant[] = [];
 	public numContestants: number = 0;
 	
-	private _aService: AlertService = inject(AlertService);
-	private _tService: TournamentService = inject(TournamentService);
+	private _sAlert: AlertService = inject(AlertService);
+	private _sTournament: TournamentService = inject(TournamentService);
 	private _router: Router = inject(Router);
 
 	ngOnInit() {
 		// Get contestants specified by the service
-		this.contestants = this._tService.getContestants();
+		this.contestants = this._sTournament.getContestants();
 		this.numContestants = this.contestants.length;
 
 		if (this.contestants.length === 0) {
-			this._aService.showAlert('No contestants to display');
+			this._sAlert.showAlert('No contestants to display');
 			this._router.navigate(['/']);
 		}
 	}

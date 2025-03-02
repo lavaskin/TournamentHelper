@@ -21,11 +21,11 @@ export class HomeComponent {
 		waifuTournament,
 	];
 
-	private _tService: TournamentService = inject(TournamentService);
+	private _sTournament: TournamentService = inject(TournamentService);
 	private _router: Router = inject(Router);
 
 	public selectTournament(selected: Tournament): void {
-		this._tService.setTournament(selected);
+		this._sTournament.setTournament(selected);
 		this._router.navigate(['/contestants']);
 	};
 }

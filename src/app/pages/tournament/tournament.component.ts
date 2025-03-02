@@ -25,22 +25,22 @@ export class TournamentComponent {
 	public round: number = 1;
 	public roundAddendum: string | null = null;
 
-	private _aService: AlertService = inject(AlertService);
-	private _tService: TournamentService = inject(TournamentService);
+	private _sAlert: AlertService = inject(AlertService);
+	private _sTournament: TournamentService = inject(TournamentService);
 	private _router: Router = inject(Router);
 
 	ngOnInit() {
 		// Get contestants specified by the service
-		this.contestants = this._tService.getContestants();
+		this.contestants = this._sTournament.getContestants();
 
 		if (this.contestants.length === 0) {
-			this._aService.showAlert('No contestants to display');
+			this._sAlert.showAlert('No contestants to display');
 			this._router.navigate(['/']);
 		}
 
 		// Check if there are a factor of 2 num of contestants
 		if (this.contestants.length % 2 !== 0) {
-			this._aService.showAlert(`Number of contestants must be a factor of 2 (${this.contestants.length} given)`);
+			this._sAlert.showAlert(`Number of contestants must be a factor of 2 (${this.contestants.length} given)`);
 			this._router.navigate(['/']);
 		}
 	}

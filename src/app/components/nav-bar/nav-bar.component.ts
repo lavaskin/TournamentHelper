@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 const COIN_FLIP_SPEED = 100; // ms
 
@@ -14,7 +14,22 @@ const COIN_FLIP_SPEED = 100; // ms
 export class NavBarComponent {
 	public showCoin: boolean = false;
 	public finishedSpining: boolean = false;
-	public coinText: string = 'X';
+	public coinText!: string;
+
+	private _router: Router = inject(Router);
+
+	public goHome(): void {
+		// Check if on the /tournament route
+		if (window.location.pathname === '/tournament') {
+			// If so, pop up a confirmation dialog
+			const confirmed = confirm('Are you sure you want to leave the tournament?');
+			if (confirmed) {
+				this._router.navigate(['/']);
+			}
+		}
+		
+		this._router.navigate(['/']);
+	}
 
 	public flipCoin(): void {
 		if (this.showCoin) return;
