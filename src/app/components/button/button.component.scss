@@ -6,7 +6,7 @@ button {
 	border-radius: 0.5rem;
 	border: 0.5rem solid var(--text);
 	background-color: transparent;
-	transition: 0.5s;
+	transition: 0.25s;
 	overflow: hidden;
 
 	&:active:not(.disabled) {
@@ -42,7 +42,7 @@ button {
 		aspect-ratio: 1/1;
 		border-radius: 50%;
 		background-color: var(--text);
-		transition: 0.5s;
+		transition: 0.25s;
 		z-index: 1;
 	}
 }
