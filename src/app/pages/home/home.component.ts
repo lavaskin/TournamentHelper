@@ -26,6 +26,6 @@ export class HomeComponent {
 
 	public selectTournament(selected: Tournament): void {
 		this._tService.setTournament(selected);
-		this._router.navigate(['/tournament']);
+		this._router.navigate(['/contestants']);
 	};
 }
