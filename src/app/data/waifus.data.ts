@@ -64,23 +64,23 @@ const waifuContestants: Contestant[] = [
 	// Genshin (https://www.youtube.com/watch?v=GDhdrltVhfs)
 	{
 		name: 'Yae Miko (Genshin Impact)',
-		thumbnailUrl: 'https://static.wikia.nocookie.net/gensin-impact/images/8/89/Yae_Miko_Card.png/revision/latest?cb=20211231161334',
+		thumbnailUrl: 'genshin/yae.png',
 	},
 	{
 		name: 'Hu Tao (Genshin Impact)',
-		thumbnailUrl: 'https://static.wikia.nocookie.net/gensin-impact/images/8/88/Hu_Tao_Card.png/revision/latest?cb=20240426170327',
+		thumbnailUrl: 'genshin/hutao.png',
 	},
 	{
 		name: 'Amber (Genshin Impact)',
-		thumbnailUrl: 'https://static.wikia.nocookie.net/gensin-impact/images/f/ff/Amber_Card.png/revision/latest?cb=20220725204839',
+		thumbnailUrl: 'genshin/amber.png',
 	},
 	{
 		name: 'Raiden Shogun (Genshin Impact)',
-		thumbnailUrl: 'https://static.wikia.nocookie.net/gensin-impact/images/6/60/Raiden_Shogun_Card.png/revision/latest?cb=20241007221517',
+		thumbnailUrl: 'genshin/raiden.png',
 	},
 	{
 		name: 'Yelan (Genshin Impact)',
-		thumbnailUrl: 'https://static.wikia.nocookie.net/gensin-impact/images/f/fd/Yelan_Card.png/revision/latest?cb=20220725205242',
+		thumbnailUrl: 'genshin/yelan.png',
 	},
 
 	// Battle Cats (https://www.youtube.com/watch?v=HXd9V7wRpDg)
@@ -112,11 +112,11 @@ const waifuContestants: Contestant[] = [
 	},
 	{
 		name: 'Furina (Genshin Impact)',
-		thumbnailUrl: 'https://static.wikia.nocookie.net/gensin-impact/images/2/27/Furina_Card.png/revision/latest?cb=20230925100151',
+		thumbnailUrl: 'traps/furina.png',
 	},
 	{
 		name: 'Beidou (Genshin Impact)',
-		thumbnailUrl: 'https://static.wikia.nocookie.net/gensin-impact/images/c/c0/Beidou_Card.png/revision/latest?cb=20220725204858',
+		thumbnailUrl: 'traps/beidou.png',
 	},
 	{
 		name: 'Bridget (Guilty Gear)',
