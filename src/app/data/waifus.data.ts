@@ -1,41 +1,41 @@
 import { Contestant } from "../models/contestant.model";
 
 const waifuContestants: Contestant[] = [
-	// Pokemon (https://www.youtube.com/watch?v=KgG_kUF7Zpk)
+	// Pokémon (https://www.youtube.com/watch?v=KgG_kUF7Zpk)
 	{
-		name: 'Leaf (Pokemon)',
+		name: 'Leaf (Pokémon)',
 		thumbnailUrl: 'pokemon/leaf.png',
 	},
 	{
-		name: 'Elesa (Pokemon)',
+		name: 'Elesa (Pokémon)',
 		thumbnailUrl: 'pokemon/elesa.png',
 	},
 	{
-		name: 'Marine (Pokemon)',
+		name: 'Marine (Pokémon)',
 		thumbnailUrl: 'pokemon/marine.png',
 	},
 	{
-		name: 'Misty (Pokemon)',
+		name: 'Misty (Pokémon)',
 		thumbnailUrl: 'pokemon/misty.png',
 	},
 	{
-		name: 'Rosa (Pokemon)',
+		name: 'Rosa (Pokémon)',
 		thumbnailUrl: 'pokemon/rosa.png',
 	},
 	{
-		name: 'Mallow (Pokemon)',
+		name: 'Mallow (Pokémon)',
 		thumbnailUrl: 'pokemon/mallow.png',
 	},
 	{
-		name: 'Nessa (Pokemon)',
+		name: 'Nessa (Pokémon)',
 		thumbnailUrl: 'pokemon/nessa.png',
 	},
 	{
-		name: 'Dawn (Pokemon)',
+		name: 'Dawn (Pokémon)',
 		thumbnailUrl: 'pokemon/dawn.png',
 	},
 	{
-		name: 'Sonia (Pokemon)',
+		name: 'Sonia (Pokémon)',
 		thumbnailUrl: 'pokemon/sonia.png',
 	},
 
@@ -127,7 +127,7 @@ const waifuContestants: Contestant[] = [
 		thumbnailUrl: 'traps/moxxi.png',
 	},
 	{
-		name: 'Gardevoir (Pokemon)',
+		name: 'Gardevoir (Pokémon)',
 		thumbnailUrl: 'traps/gardevoir.png',
 	},
 	{
