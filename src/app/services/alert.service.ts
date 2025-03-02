@@ -9,7 +9,7 @@ export class AlertService {
 	private closeSubject = new Subject<void>();
 	public alert$ = this.alertSubject.asObservable();
 
-	public showAlert(message: string, destruct: number = 2000): void {
+	public showAlert(message: string, destruct: number = 3000): void {
 		this.alertSubject.next(message);
 
 		if (destruct) {

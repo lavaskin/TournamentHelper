@@ -34,7 +34,7 @@ import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 
 		.alert {
 			position: fixed;
-			top: 1rem;
+			top: 1.5rem;
 
 			color: var(--background);
 			background-color: var(--text);
