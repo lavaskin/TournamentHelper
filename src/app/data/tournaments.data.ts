@@ -1,4 +1,5 @@
 import { Tournament } from "../models/tournament.model";
+import albumCoverContestants from "./album-covers.data";
 import animalContestants from "./animals.data";
 import dinnerContestants from "./dinner.data";
 import posterContestants from "./posters.data";
@@ -11,7 +12,7 @@ const posterTournament: Tournament = {
 	shuffle: true,
 }
 
-const animalTournamnent: Tournament = {
+const animalTournament: Tournament = {
 	title: "Animal Battle Royale",
 	contestants: animalContestants,
 	thumbnailPath: 'animals',
@@ -32,9 +33,17 @@ const waifuTournament: Tournament = {
 	shuffle: true,
 }
 
+const albumCoverTournament: Tournament = {
+	title: "Album Cover Tournament",
+	contestants: albumCoverContestants,
+	thumbnailPath: 'album-covers',
+	shuffle: true,
+}
+
 export {
 	posterTournament,
-	animalTournamnent,
+	animalTournament,
 	dinnerTournament,
 	waifuTournament,
+	albumCoverTournament,
 };
