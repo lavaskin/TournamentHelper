@@ -102,7 +102,7 @@ const albumCoverContestants: Contestant[] = [
 		thumbnailUrl: "Rivers of Nihil_Where Owls Know My Name_2018.png",
 	},
 	{
-		name: "Abbey_Road (1969)",
+		name: "Abbey Road (1969)",
 		thumbnailUrl: "The Beatles_Abbey_Road_1969.png",
 	},
 	{
