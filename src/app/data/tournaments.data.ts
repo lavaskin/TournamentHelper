@@ -4,6 +4,7 @@ import animalContestants from "./animals.data";
 import dinnerContestants from "./dinner.data";
 import posterContestants from "./posters.data";
 import waifuContestants from "./waifus.data";
+import gatmPeopleContestants from "./gatm-people.data";
 
 const posterTournament: Tournament = {
 	title: "Movie Poster Tournament",
@@ -40,10 +41,18 @@ const albumCoverTournament: Tournament = {
 	shuffle: true,
 }
 
+const gatmPeopleTournament: Tournament = {
+	title: "GatM Death Battle Tournament",
+	contestants: gatmPeopleContestants,
+	thumbnailPath: 'gatm_people',
+	shuffle: true,
+}
+
 export {
 	posterTournament,
 	animalTournament,
 	dinnerTournament,
 	waifuTournament,
 	albumCoverTournament,
+	gatmPeopleTournament,
 };

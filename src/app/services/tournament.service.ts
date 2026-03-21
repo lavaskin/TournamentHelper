@@ -83,25 +83,41 @@ export class TournamentService {
 	}
 
 	private shuffleArray(contestants: Contestant[]): Contestant[] {
-		const shuffledContestants: Contestant[] = [];
-		
-		// Shuffle the contestants
-		const lowWeightContestants = this._utils.shuffleArray(contestants.filter(c => c.weight === 1));
-		const highWeightContestants = this._utils.shuffleArray(contestants.filter(c => c.weight === 2));
+		// Separate default-weight contestants from paired contestants
+		const defaultContestants = this._utils.shuffleArray(contestants.filter(c => c.weight === 1));
+		const pairedContestants = contestants.filter(c => c.weight! > 1);
 
-		// Evenly distribute the high weight contestants between the low weight contestants
-		const lowHighSplit: number = Math.floor(lowWeightContestants.length / highWeightContestants.length);
-		lowWeightContestants.forEach((c, i) => {
-			shuffledContestants.push(c);
-
-			// If evenly divisible by the split, add a high weight contestant
-			if ((i+1) % lowHighSplit === 0) {
-				const highWeightContestant = highWeightContestants.pop();
-				if (highWeightContestant) {
-					shuffledContestants.push(highWeightContestant);
-				}
+		// Group paired contestants by weight, then shuffle within each group
+		const weightGroups = new Map<number, Contestant[]>();
+		pairedContestants.forEach(c => {
+			if (!weightGroups.has(c.weight!)) {
+				weightGroups.set(c.weight!, []);
 			}
+			weightGroups.get(c.weight!)!.push(c);
 		});
+
+		// Build paired slots: each weight group becomes adjacent pairs in the final array
+		const pairedSlots: Contestant[] = [];
+		const sortedWeights = [...weightGroups.keys()].sort((a, b) => a - b);
+		const shuffledWeights = this._utils.shuffleArray(sortedWeights);
+
+		for (const weight of shuffledWeights) {
+			const group = this._utils.shuffleArray(weightGroups.get(weight)!);
+			pairedSlots.push(...group);
+		}
+
+		// Interleave: place paired slots evenly throughout the default contestants
+		const shuffledContestants: Contestant[] = [...defaultContestants];
+		const totalPairs = pairedSlots.length / 2;
+
+		if (totalPairs > 0) {
+			// Space pairs evenly; each pair occupies 2 adjacent slots
+			const spacing = Math.floor(shuffledContestants.length / totalPairs);
+			for (let i = 0; i < totalPairs; i++) {
+				const insertAt = Math.min(i * spacing + spacing, shuffledContestants.length);
+				shuffledContestants.splice(insertAt, 0, pairedSlots[i * 2], pairedSlots[i * 2 + 1]);
+			}
+		}
 
 		return shuffledContestants;
 	}
