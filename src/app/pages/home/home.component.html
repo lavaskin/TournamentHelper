@@ -5,7 +5,6 @@
 	</div>
 
 	<div class="flex col gap-1 center">
-		<p class="h3">Tournaments:</p>
 		@for(t of tournaments; track $index) {
 			<app-button [label]="t.title" (click)="selectTournament(t)"></app-button>
 		}
