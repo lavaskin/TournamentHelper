@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tournament } from '../../models/tournament.model';
-import { albumCoverTournament, animalTournament, dinnerTournament, gatmPeopleTournament, posterTournament, waifuTournament } from '../../data/tournaments.data';
+import { albumCoverTournament, animalTournament, bandNameTournament, dinnerTournament, gatmPeopleTournament, posterTournament, waifuTournament } from '../../data/tournaments.data';
 import { TournamentService } from '../../services/tournament.service';
 import { Router } from '@angular/router';
 import { ButtonComponent } from "../../components/button/button.component";
@@ -21,6 +21,7 @@ export class HomeComponent {
 		waifuTournament,
 		albumCoverTournament,
 		gatmPeopleTournament,
+		bandNameTournament,
 	];
 
 	private _sTournament: TournamentService = inject(TournamentService);

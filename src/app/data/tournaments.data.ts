@@ -5,9 +5,10 @@ import dinnerContestants from "./dinner.data";
 import posterContestants from "./posters.data";
 import waifuContestants from "./waifus.data";
 import gatmPeopleContestants from "./gatm-people.data";
+import bandNameContestants from "./band-names.data";
 
 const posterTournament: Tournament = {
-	title: "Movie Poster Tournament",
+	title: "Movie Posters",
 	contestants: posterContestants,
 	thumbnailPath: 'poster',
 	shuffle: true,
@@ -21,7 +22,7 @@ const animalTournament: Tournament = {
 }
 
 const dinnerTournament: Tournament = {
-	title: "Dinner Tournament",
+	title: "Dinner Meals",
 	contestants: dinnerContestants,
 	thumbnailPath: 'dinner',
 	shuffle: true,
@@ -35,16 +36,23 @@ const waifuTournament: Tournament = {
 }
 
 const albumCoverTournament: Tournament = {
-	title: "Album Cover Tournament",
+	title: "Album Covers",
 	contestants: albumCoverContestants,
 	thumbnailPath: 'album-covers',
 	shuffle: true,
 }
 
 const gatmPeopleTournament: Tournament = {
-	title: "GatM Death Battle Tournament",
+	title: "GatM Death Battle",
 	contestants: gatmPeopleContestants,
 	thumbnailPath: 'gatm_people',
+	shuffle: true,
+}
+
+const bandNameTournament: Tournament = {
+	title: "Band Names",
+	contestants: bandNameContestants,
+	thumbnailPath: 'band_names',
 	shuffle: true,
 }
 
@@ -55,4 +63,5 @@ export {
 	waifuTournament,
 	albumCoverTournament,
 	gatmPeopleTournament,
+	bandNameTournament,
 };
