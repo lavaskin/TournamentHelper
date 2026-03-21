@@ -2,6 +2,7 @@
 	[ngClass]="{'selected': isSelected && canBeSelected, 'unselected': !isSelected}">
 	
 	<img [src]="contestant.thumbnailUrl"
+		[class.image-bg]="imageBg"
 		(click)="onClick()">
 
 	<p [style.text-align]="isLeftSide ? 'left' : 'right'">{{ contestant.name }}</p>

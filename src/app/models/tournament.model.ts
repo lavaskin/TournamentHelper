@@ -5,4 +5,5 @@ export interface Tournament {
 	contestants: Contestant[],
 	thumbnailPath: string,
 	shuffle?: boolean,
+	imageBg?: boolean,
 }

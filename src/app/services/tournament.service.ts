@@ -8,7 +8,6 @@ import { AlertService } from "./alert.service";
 	providedIn: 'root',
 })
 export class TournamentService {
-	// CHANGE THIS TO SWAP WHICH TOURNAMENT IS BEING RAN
 	private _tournament?: Tournament;
 
 	private _utils: Utils = new Utils();
@@ -17,6 +16,10 @@ export class TournamentService {
 	public setTournament(tournament: Tournament): void {
 		this._tournament = tournament;
 		this.storeTournament(tournament);
+	}
+
+	public get imageBg(): boolean {
+		return this._tournament?.imageBg ?? false;
 	}
 
 	public getContestants(): Contestant[] {

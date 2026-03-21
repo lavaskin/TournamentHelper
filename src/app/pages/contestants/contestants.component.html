@@ -4,7 +4,7 @@
 
 	<div class="flex row flex-wrap">
 		@for (c of contestants; track $index) {
-			<app-contestant [contestant]="c"></app-contestant>
+			<app-contestant [contestant]="c" [imageBg]="imageBg"></app-contestant>
 		}
 	</div>
 

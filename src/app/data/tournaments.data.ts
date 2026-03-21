@@ -54,6 +54,7 @@ const bandNameTournament: Tournament = {
 	contestants: bandNameContestants,
 	thumbnailPath: 'band_names',
 	shuffle: true,
+	imageBg: true,
 }
 
 export {

@@ -17,6 +17,7 @@ export class TournamentComponent {
 	public contestants: Contestant[] = [];
 	private passedContestants: Contestant[] = [];
 	public winner: Contestant | null = null;
+	public imageBg: boolean = false;
 
 	public leftSideSelected: boolean | null = null;
 
@@ -30,6 +31,7 @@ export class TournamentComponent {
 	ngOnInit() {
 		// Get contestants specified by the service
 		this.contestants = this._sTournament.getContestants();
+		this.imageBg = this._sTournament.imageBg;
 
 		if (this.contestants.length === 0) {
 			this._router.navigate(['/']);

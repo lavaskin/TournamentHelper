@@ -16,6 +16,7 @@ import { ButtonComponent } from "../../components/button/button.component";
 export class ContestantsComponent {
 	public contestants: Contestant[] = [];
 	public numContestants: number = 0;
+	public imageBg: boolean = false;
 	
 	private _sTournament: TournamentService = inject(TournamentService);
 	private _router: Router = inject(Router);
@@ -24,6 +25,7 @@ export class ContestantsComponent {
 		// Get contestants specified by the service
 		this.contestants = this._sTournament.getContestants();
 		this.numContestants = this.contestants.length;
+		this.imageBg = this._sTournament.imageBg;
 
 		if (this.contestants.length === 0) {
 			this._router.navigate(['/']);

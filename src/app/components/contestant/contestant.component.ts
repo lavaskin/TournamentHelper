@@ -14,6 +14,7 @@ export class ContestantComponent {
     @Input() public isLeftSide: boolean = false;
     @Input() public isSelected: boolean = false;
     @Input() public canBeSelected: boolean = true;
+    @Input() public imageBg: boolean = false;
 
     @Output() public onVote: EventEmitter<boolean> = new EventEmitter<boolean>();
     
