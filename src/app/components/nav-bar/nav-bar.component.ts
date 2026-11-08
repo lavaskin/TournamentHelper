@@ -1,21 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 const COIN_FLIP_SPEED = 100; // ms
 
 @Component({
 	selector: 'app-nav-bar',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	standalone: true,
 	imports: [CommonModule, RouterModule],
 	templateUrl: './nav-bar.component.html',
 	styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
-	public showCoin: boolean = false;
-	public finishedSpining: boolean = false;
-	public coinText!: string;
+	public showCoin = signal(false);
+	public finishedSpining = signal(false);
+	public coinText = signal('');
 
 	private _router: Router = inject(Router);
 
@@ -35,7 +34,7 @@ export class NavBarComponent {
 	}
 
 	public flipCoin(): void {
-		if (this.showCoin) return;
+		if (this.showCoin()) return;
 
 		// Random between 3 - 5 seconds
 		const coinSpinTime = (Math.random() * 2) + 3;
@@ -43,25 +42,25 @@ export class NavBarComponent {
 		// Roll the outcome prior to spinning
 		const predecidedText = Math.random() > 0.5 ? 'L' : 'R';
 		// Choose a random side to show while spinning
-		this.coinText = Math.random() > 0.5 ? 'L' : 'R';
+		this.coinText.set(Math.random() > 0.5 ? 'L' : 'R');
 
-		this.finishedSpining = false;
-		this.showCoin = true;
+		this.finishedSpining.set(false);
+		this.showCoin.set(true);
 
 		// Every COIN_FLIP_SPEED, flip the coin
 		const flipInterval = setInterval(() => {
-			this.coinText = this.coinText === 'L' ? 'R' : 'L';
+			this.coinText.update(text => text === 'L' ? 'R' : 'L');
 		}, COIN_FLIP_SPEED);
 
 		setTimeout(() => {
 			clearInterval(flipInterval);
-			this.coinText = predecidedText;
-			this.finishedSpining = true;
-			console.log('Coin Flipped: ', this.coinText);
+			this.coinText.set(predecidedText);
+			this.finishedSpining.set(true);
+			console.log('Coin Flipped: ', predecidedText);
 
 			// Hide the coin in 5s
 			setTimeout(() => {
-				this.showCoin = false;
+				this.showCoin.set(false);
 			}, 5000);
 		}, coinSpinTime * 1000);
 	}

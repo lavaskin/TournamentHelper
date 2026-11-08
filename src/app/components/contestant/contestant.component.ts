@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Contestant } from '../../models/contestant.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
 	selector: 'app-contestant',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	standalone: true,
 	imports: [CommonModule],
 	templateUrl: './contestant.component.html',
