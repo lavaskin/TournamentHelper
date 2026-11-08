@@ -2,7 +2,7 @@
 
 Single-elimination weighted tournament bracket simulator. I'm not doing anything fancy with bye rounds or the like, so contestants must be factors of 2
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
+This project uses [Angular](https://angular.dev) version 22.
 
 ## Running Locally
 

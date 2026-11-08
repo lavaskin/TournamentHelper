@@ -2,7 +2,7 @@
 	<ul class="flex row gap-1">
 		<li class="clickable"
 			(click)="flipCoin()"
-			[ngClass]="{ disabled: showCoin }">
+			[ngClass]="{ disabled: showCoin() }">
 
 			<span>flip a coin</span>
 		</li>
@@ -17,10 +17,10 @@
 	</ul>
 </nav>
 
-@if (showCoin) {
+@if (showCoin()) {
 	<div class="coin"
-		[ngClass]="{ finished: finishedSpining }">
+		[ngClass]="{ finished: finishedSpining() }">
 		
-		{{ coinText }}
+		{{ coinText() }}
 	</div>
 }
