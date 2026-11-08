@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AlertService } from './services/alert.service';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 
 @Component({
 	selector: 'app-root',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	standalone: true,
 	imports: [CommonModule, RouterOutlet, NavBarComponent],
 	template:`

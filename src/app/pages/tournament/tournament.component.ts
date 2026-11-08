@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Contestant } from '../../models/contestant.model';
 import { ContestantComponent } from '../../components/contestant/contestant.component';
 import { CommonModule } from '@angular/common';
@@ -8,6 +8,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
 	selector: 'page-tournament',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	standalone: true,
 	imports: [ContestantComponent, ButtonComponent, CommonModule, RouterModule],
 	templateUrl: './tournament.component.html',

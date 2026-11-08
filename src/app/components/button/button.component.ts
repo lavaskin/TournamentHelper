@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
 	selector: 'app-button',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	standalone: true,
 	imports: [CommonModule],
 	templateUrl: './button.component.html',

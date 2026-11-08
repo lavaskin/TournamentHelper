@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 const COIN_FLIP_SPEED = 100; // ms
 
 @Component({
 	selector: 'app-nav-bar',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	standalone: true,
 	imports: [CommonModule, RouterModule],
 	templateUrl: './nav-bar.component.html',
