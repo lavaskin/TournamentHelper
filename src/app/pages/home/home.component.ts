@@ -1,4 +1,4 @@
-import { albumCoverTournament, animalTournament, bandNameTournament, dinnerTournament, gatmPeopleHumanTournament, gatmPeopleMonsterTournament, posterTournament, waifuTournament } from '../../data/tournaments.data';
+import tournaments from '../../data/tournaments.data';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tournament } from '../../models/tournament.model';
@@ -14,16 +14,7 @@ import { ButtonComponent } from "../../components/button/button.component";
 	// styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-	public tournaments: Tournament[] = [
-		posterTournament,
-		animalTournament,
-		dinnerTournament,
-		waifuTournament,
-		albumCoverTournament,
-		gatmPeopleHumanTournament,
-		gatmPeopleMonsterTournament,
-		bandNameTournament,
-	];
+	public tournaments: Tournament[] = tournaments;
 
 	private _sTournament: TournamentService = inject(TournamentService);
 	private _router: Router = inject(Router);
