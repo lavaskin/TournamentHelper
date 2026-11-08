@@ -1,6 +1,8 @@
 # TournamentHelper
 
-Single-elimination weighted tournament bracket simulator. I'm not doing anything fancy with bye rounds or the like, so contestants must be factors of 2
+Single-elimination tournament bracket simulator. Tournaments can have any number of contestants (2 or more): the bracket is padded with byes up to the next power of 2, and contestants facing a bye advance automatically.
+
+Contestants can optionally be given a `seed` (1 being the best). Seeds must be unique and run 1, 2, 3... with no gaps. Seeded contestants get byes first and are placed so the top seeds can only meet in later rounds (1 and 2 in the final, 1 to 4 in the semifinals, and so on). Everyone else is shuffled into the remaining slots.
 
 This project uses [Angular](https://angular.dev) version 22.
 

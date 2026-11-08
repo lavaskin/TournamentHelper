@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../services/tournament.service';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
+import { Bracket, MatchPosition } from '../../models/bracket.model';
+import { getChampion, getMatch, getNextMatch, pickWinner } from '../../bracket';
 
 @Component({
 	selector: 'page-tournament',
@@ -14,14 +16,16 @@ import { ButtonComponent } from '../../components/button/button.component';
 	// styleUrl: './tournament.component.scss'
 })
 export class TournamentComponent {
-	public contestants: Contestant[] = [];
-	private passedContestants: Contestant[] = [];
+	private bracket: Bracket | null = null;
+	private position: MatchPosition | null = null;
+
+	public leftContestant: Contestant | null = null;
+	public rightContestant: Contestant | null = null;
 	public winner: Contestant | null = null;
 	public imageBg: boolean = false;
 
 	public leftSideSelected: boolean | null = null;
 
-	public currentIndexOffset: number = 0;
 	public round: number = 1;
 	public roundAddendum: string | null = null;
 
@@ -29,13 +33,15 @@ export class TournamentComponent {
 	private _router: Router = inject(Router);
 
 	ngOnInit() {
-		// Get contestants specified by the service
-		this.contestants = this._sTournament.getContestants();
+		this.bracket = this._sTournament.createBracket();
 		this.imageBg = this._sTournament.imageBg;
 
-		if (this.contestants.length === 0) {
+		if (!this.bracket) {
 			this._router.navigate(['/']);
+			return;
 		}
+
+		this.showNextMatch();
 	}
 
 	public handleVote(isLeftSide: boolean) {
@@ -47,46 +53,38 @@ export class TournamentComponent {
 	}
 
 	public nextRound() {
-		if (this.leftSideSelected === null) return;
+		if (this.leftSideSelected === null || !this.bracket || !this.position) return;
 
-		// Add the winner to the passed contestants
-		this.passedContestants.push(
-			this.leftSideSelected ?
-				this.getLeftContestant() :
-				this.getRightContestant()
-		);
-		
-		this.currentIndexOffset += 2;
+		pickWinner(this.bracket, this.position, this.leftSideSelected ? 0 : 1);
 		this.leftSideSelected = null;
+		this.showNextMatch();
+	}
 
-		// Check if there are no more contestants
-		if (this.currentIndexOffset >= this.contestants.length) {
-			// Check if there is only one contestant left (aka a winner)
-			if (this.passedContestants.length === 1) {
-				this.winner = this.passedContestants[0];
-			} else {
-				// Reset the contestants
-				this.contestants = this.passedContestants;
-				this.passedContestants = [];
-				this.currentIndexOffset = 0;
-				this.round++;
-				console.log('Moving on to round ' + this.round + ' with ' + this.contestants.length + ' contestants');
+	private showNextMatch() {
+		const bracket = this.bracket!;
+		this.position = getNextMatch(bracket);
 
-				if (this.contestants.length === 8) {
-					this.roundAddendum = "Quarters";
-			 	} else if (this.contestants.length === 4) {
-					this.roundAddendum = "Semi's";
-				} else if (this.contestants.length === 2) {
-					this.roundAddendum = "Finals";
-				}
-			}
+		if (!this.position) {
+			this.winner = getChampion(bracket);
+			return;
 		}
-	}
 
-	public getLeftContestant(): Contestant {
-		return this.contestants[this.currentIndexOffset];
-	}
-	public getRightContestant(): Contestant {
-		return this.contestants[this.currentIndexOffset + 1];
+		// Bye matches are decided when the bracket is made, so both slots hold contestants here
+		const [left, right] = getMatch(bracket, this.position).slots;
+		this.leftContestant = left as Contestant;
+		this.rightContestant = right as Contestant;
+
+		this.round = this.position.round + 1;
+
+		const slotsInRound = bracket.rounds[this.position.round].length * 2;
+		if (slotsInRound === 8) {
+			this.roundAddendum = "Quarters";
+		} else if (slotsInRound === 4) {
+			this.roundAddendum = "Semi's";
+		} else if (slotsInRound === 2) {
+			this.roundAddendum = "Finals";
+		} else {
+			this.roundAddendum = null;
+		}
 	}
 }

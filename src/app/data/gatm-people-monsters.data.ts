@@ -16,7 +16,6 @@ const gatmPeopleMonsterContestants: Contestant[] = [
 	{
 		name: 'Godzilla (Godzilla)',
 		thumbnailUrl: 'monsters/Godzilla.png',
-		weight: 9,
 	},
 	{
 		name: 'Reze (Chainsaw Man The Movie)',
@@ -29,12 +28,10 @@ const gatmPeopleMonsterContestants: Contestant[] = [
 	{
 		name: 'Spawn (Spawn)',
 		thumbnailUrl: 'monsters/Spawn.png',
-		weight: 7,
 	},
 	{
 		name: 'Hellboy (Hellboy)',
 		thumbnailUrl: 'monsters/Hellboy.png',
-		weight: 7,
 	},
 	{
 		name: 'Chronicle Kid (Chronicle)',
@@ -43,7 +40,6 @@ const gatmPeopleMonsterContestants: Contestant[] = [
 	{
 		name: 'Paddington (Paddington 2)',
 		thumbnailUrl: 'monsters/Paddington.png',
-		weight: 8,
 	},
 	{
 		name: 'Harry (Harry and the Hendersons)',
@@ -112,7 +108,6 @@ const gatmPeopleMonsterContestants: Contestant[] = [
 	{
 		name: 'Unicron (Transformers The Movie)',
 		thumbnailUrl: 'monsters/Unicron.png',
-		weight: 9,
 	},
 	{
 		name: 'Indominus Rex (Jurassic World)',
@@ -133,7 +128,6 @@ const gatmPeopleMonsterContestants: Contestant[] = [
 	{
 		name: 'The Beast (The Beast of Yucca Flats)',
 		thumbnailUrl: 'monsters/The Beast.png',
-		weight: 8,
 	},
 ];
 
