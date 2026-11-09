@@ -16,7 +16,8 @@ const COIN_FLIP_SPEED = 100; // ms
 	templateUrl: './nav-bar.component.html',
 	styleUrl: './nav-bar.component.scss',
 	host: {
-		'(document:keydown.escape)': 'closeBracket()',
+		// On window, not document, so the lightbox (on document) can stop Escape reaching here when it's open on top
+		'(window:keydown.escape)': 'closeBracket()',
 	},
 })
 export class NavBarComponent {

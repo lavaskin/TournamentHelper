@@ -1,8 +1,9 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Bracket, Match, MatchPosition, SlotIndex } from '../../models/bracket.model';
 import { Contestant } from '../../models/contestant.model';
 import { getChampion, isBye, isByeMatch, isContestant, roundName } from '../../bracket';
+import { LightboxService } from '../../services/lightbox.service';
 
 interface SlotView {
 	contestant: Contestant | null,
@@ -43,6 +44,8 @@ export class BracketComponent {
 	public current = input<MatchPosition | null>(null);
 	public imageBg = input(false);
 
+	private _sLightbox: LightboxService = inject(LightboxService);
+
 	public rows = computed(() => Math.max(2, this.bracket().rounds[0].length));
 
 	public left = computed(() => this.side(0));
@@ -57,6 +60,10 @@ export class BracketComponent {
 			match: this.matchView(bracket.rounds[round][0], { round, match: 0 }),
 		};
 	});
+
+	public enlarge(contestant: Contestant): void {
+		this._sLightbox.open({ url: contestant.thumbnailUrl, name: contestant.name, imageBg: this.imageBg() });
+	}
 
 	private side(half: SlotIndex): ColumnView[] {
 		const bracket = this.bracket();

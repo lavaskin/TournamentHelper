@@ -47,7 +47,7 @@ describe('NavBarComponent bracket overlay', () => {
 		expect(el.querySelector('.bracket-overlay app-bracket')).not.toBeNull();
 		expect(el.querySelectorAll('.bracket-overlay .match.current')).toHaveLength(1);
 
-		document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+		document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
 		fixture.detectChanges();
 		expect(el.querySelector('.bracket-overlay')).toBeNull();
 

@@ -3,16 +3,19 @@ import { RouterOutlet } from '@angular/router';
 import { AlertService } from './services/alert.service';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { LightboxComponent } from './components/lightbox/lightbox.component';
 
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [CommonModule, RouterOutlet, NavBarComponent],
+	imports: [CommonModule, RouterOutlet, NavBarComponent, LightboxComponent],
 	template:`
 		<div class="app-wrapper">
 			<app-nav-bar></app-nav-bar>
 
 			<router-outlet></router-outlet>
+
+			<app-lightbox />
 
 			<!-- Global Alert Display -->
 			@if (showAlert()) {

@@ -44,7 +44,10 @@
 				[class.champion]="slot.champion">
 
 				@if (slot.contestant; as contestant) {
-					<img [src]="contestant.thumbnailUrl" [class.image-bg]="imageBg()" alt="">
+					<img [src]="contestant.thumbnailUrl"
+						[class.image-bg]="imageBg()"
+						[alt]="contestant.name"
+						(click)="enlarge(contestant)">
 					@if (contestant.seed) {
 						<span class="seed">{{ contestant.seed }}</span>
 					}
