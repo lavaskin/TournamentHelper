@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { Bracket, Match, MatchPosition } from '../../models/bracket.model';
+import { Bracket, Match, MatchPosition, SlotIndex } from '../../models/bracket.model';
 import { Contestant } from '../../models/contestant.model';
 import { getChampion, isBye, isByeMatch, isContestant, roundName } from '../../bracket';
 
@@ -58,7 +58,7 @@ export class BracketComponent {
 		};
 	});
 
-	private side(half: 0 | 1): ColumnView[] {
+	private side(half: SlotIndex): ColumnView[] {
 		const bracket = this.bracket();
 
 		return bracket.rounds.slice(0, -1).map((matches, round) => {
