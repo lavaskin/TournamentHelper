@@ -1,6 +1,6 @@
-import { Bracket, BracketSlot, BYE, Match, MatchPosition } from "./models/bracket.model";
-import { Contestant } from "./models/contestant.model";
-import Utils from "./utils";
+import { Bracket, BracketSlot, BYE, Match, MatchPosition, SlotIndex } from './models/bracket.model';
+import { Contestant } from './models/contestant.model';
+import Utils from './utils';
 
 const utils = new Utils();
 
@@ -15,15 +15,20 @@ export function seedOrder(size: number): number[] {
 	return order;
 }
 
+// The next power of 2 at or above the contestant count
+export function bracketSize(contestantCount: number): number {
+	return 2 ** Math.ceil(Math.log2(contestantCount));
+}
+
 // Builds a bracket padded with byes up to the next power of 2.
 // Seeded contestants take the top ranks in seed order, unseeded contestants fill the rest (shuffled if `shuffle`).
 // Byes take the bottom ranks, so they're paired with the top seeds first and never with each other.
-export function createBracket(contestants: Contestant[], shuffle: boolean = true): Bracket {
+export function createBracket(contestants: Contestant[], shuffle: boolean = false): Bracket {
 	if (contestants.length < 2) {
 		throw new Error('A bracket needs at least 2 contestants');
 	}
 
-	const size = 2 ** Math.ceil(Math.log2(contestants.length));
+	const size = bracketSize(contestants.length);
 
 	const seeded = contestants
 		.filter(c => c.seed !== undefined)
@@ -85,7 +90,7 @@ export function getChampion(bracket: Bracket): Contestant | null {
 	return getMatchWinner(final);
 }
 
-export function pickWinner(bracket: Bracket, position: MatchPosition, winner: 0 | 1): void {
+export function pickWinner(bracket: Bracket, position: MatchPosition, winner: SlotIndex): void {
 	const match = getMatch(bracket, position);
 	const [a, b] = match.slots;
 

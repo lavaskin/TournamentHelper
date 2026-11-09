@@ -76,13 +76,13 @@ export class TournamentComponent {
 
 		this.round = this.position.round + 1;
 
-		const slotsInRound = bracket.rounds[this.position.round].length * 2;
-		if (slotsInRound === 8) {
-			this.roundAddendum = "Quarters";
-		} else if (slotsInRound === 4) {
+		const contestantsInRound = bracket.rounds[this.position.round].length * 2;
+		if (contestantsInRound === 8) {
+			this.roundAddendum = 'Quarters';
+		} else if (contestantsInRound === 4) {
 			this.roundAddendum = "Semi's";
-		} else if (slotsInRound === 2) {
-			this.roundAddendum = "Finals";
+		} else if (contestantsInRound === 2) {
+			this.roundAddendum = 'Finals';
 		} else {
 			this.roundAddendum = null;
 		}
