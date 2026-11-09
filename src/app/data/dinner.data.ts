@@ -1,4 +1,4 @@
-import { Contestant } from "../models/contestant.model";
+import { Contestant } from '../models/contestant.model';
 
 const dinnerContestants: Contestant[] = [
 	{

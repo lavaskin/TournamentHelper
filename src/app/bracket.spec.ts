@@ -1,5 +1,5 @@
-import { createBracket, getChampion, getMatch, getMatchWinner, getNextMatch, isBye, isByeMatch, pickWinner, seedOrder } from './bracket';
-import { Bracket } from './models/bracket.model';
+import { bracketSize, createBracket, getChampion, getMatch, getMatchWinner, getNextMatch, isBye, isByeMatch, pickWinner, seedOrder } from './bracket';
+import { Bracket, SlotIndex } from './models/bracket.model';
 import { Contestant } from './models/contestant.model';
 
 function makeContestants(count: number, seeds: number = 0): Contestant[] {
@@ -11,7 +11,7 @@ function makeContestants(count: number, seeds: number = 0): Contestant[] {
 }
 
 // Plays every match, returning the matches that were put to a vote
-function playThrough(bracket: Bracket, choose: (a: Contestant, b: Contestant) => 0 | 1 = () => (Math.random() < 0.5 ? 0 : 1)) {
+function playThrough(bracket: Bracket, choose: (a: Contestant, b: Contestant) => SlotIndex = () => (Math.random() < 0.5 ? 0 : 1)) {
 	const played: { round: number, a: Contestant, b: Contestant }[] = [];
 
 	for (let position = getNextMatch(bracket); position; position = getNextMatch(bracket)) {
@@ -51,7 +51,7 @@ describe('createBracket', () => {
 	for (const count of SIZES) {
 		it(`plays ${count} contestants through to a single winner`, () => {
 			const contestants = makeContestants(count);
-			const bracket = createBracket(contestants);
+			const bracket = createBracket(contestants, true);
 			const played = playThrough(bracket);
 
 			// Every real contestant is eliminated once, except the winner
@@ -62,8 +62,8 @@ describe('createBracket', () => {
 
 		it(`places every one of ${count} contestants once, with no bye-vs-bye matches`, () => {
 			const contestants = makeContestants(count, Math.floor(count / 3));
-			const bracket = createBracket(contestants);
-			const size = 2 ** Math.ceil(Math.log2(count));
+			const bracket = createBracket(contestants, true);
+			const size = bracketSize(count);
 			const firstRound = bracket.rounds[0];
 
 			expect(firstRound.length * 2).toBe(size);
@@ -101,7 +101,7 @@ describe('createBracket', () => {
 	it('gives byes to seeds in order before any unseeded contestant', () => {
 		// 24 contestants in a bracket of 32 means 8 byes
 		for (const seeds of [0, 3, 8, 12]) {
-			const bracket = createBracket(makeContestants(24, seeds));
+			const bracket = createBracket(makeContestants(24, seeds), true);
 			const byeRecipients = bracket.rounds[0]
 				.filter(isByeMatch)
 				.map(m => getMatchWinner(m)!);
@@ -117,7 +117,7 @@ describe('createBracket', () => {
 	for (const count of SIZES.filter(c => c >= 4)) {
 		it(`keeps seeds 1-2 in opposite halves and 1-4 in separate quarters (${count} contestants)`, () => {
 			for (let run = 0; run < 20; run++) {
-				const bracket = createBracket(makeContestants(count, 4));
+				const bracket = createBracket(makeContestants(count, 4), true);
 				const size = bracket.rounds[0].length * 2;
 				const half = (seed: number) => Math.floor(slotOf(bracket, seed) / (size / 2));
 				const quarter = (seed: number) => Math.floor(slotOf(bracket, seed) / (size / 4));
@@ -143,7 +143,7 @@ describe('createBracket', () => {
 			}
 
 			const final = played.find(p => p.round === finalRound)!;
-			expect([final.a.seed, final.b.seed].sort()).toEqual([1, 2]);
+			expect([final.a.seed, final.b.seed].sort((a, b) => a! - b!)).toEqual([1, 2]);
 			expect(getChampion(bracket)!.seed).toBe(1);
 		});
 	}

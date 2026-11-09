@@ -29,7 +29,7 @@ export class NavBarComponent {
 				return;
 			}
 		}
-		
+
 		this._router.navigate(['/']);
 	}
 

@@ -54,9 +54,11 @@ describe('Tournament data', () => {
 					if (!Number.isInteger(c.seed) || c.seed! < 1 || c.seed! > count) {
 						problems.push(`${c.name}: seed ${c.seed} must be a whole number from 1 to ${count}`);
 					}
-					if (seeded.some(other => other !== c && other.seed === c.seed)) {
-						problems.push(`${c.name}: seed ${c.seed} is used more than once`);
-					}
+				}
+
+				for (const seed of seeds) {
+					const holders = seeded.filter(c => c.seed === seed).map(c => c.name);
+					if (holders.length > 1) problems.push(`seed ${seed} is used more than once (${holders.join(', ')})`);
 				}
 
 				for (let seed = 1; seed <= Math.max(0, ...seeds); seed++) {

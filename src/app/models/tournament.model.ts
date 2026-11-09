@@ -1,4 +1,4 @@
-import { Contestant } from "./contestant.model";
+import { Contestant } from './contestant.model';
 
 export interface Tournament {
 	// Unique, URL-safe id (lowercase letters, numbers and dashes)

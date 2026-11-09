@@ -1,16 +1,16 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-      {
-          "type": "node",
-          "request": "launch",
-          "name": "Serve Angular",
-          "runtimeExecutable": "npm",
-          "runtimeArgs": [
-              "run",
-              "start"
-          ],
-          "console": "integratedTerminal"
-      }
-  ]
+	"version": "0.2.0",
+	"configurations": [
+			{
+					"type": "node",
+					"request": "launch",
+					"name": "Serve Angular",
+					"runtimeExecutable": "npm",
+					"runtimeArgs": [
+							"run",
+							"start"
+					],
+					"console": "integratedTerminal"
+			}
+	]
 }

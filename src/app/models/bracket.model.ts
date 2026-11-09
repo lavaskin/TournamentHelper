@@ -1,14 +1,17 @@
-import { Contestant } from "./contestant.model";
+import { Contestant } from './contestant.model';
 
 export const BYE = 'bye';
 
 // A contestant, a bye, or null while waiting on the winner of an earlier match
 export type BracketSlot = Contestant | typeof BYE | null;
 
+// Index into a match's slots
+export type SlotIndex = 0 | 1;
+
 export interface Match {
 	slots: [BracketSlot, BracketSlot],
 	// Index of the winning slot, or null if the match hasn't been decided
-	winner: 0 | 1 | null,
+	winner: SlotIndex | null,
 }
 
 export interface Bracket {
