@@ -4,7 +4,8 @@ import { getChampion, getDraw, getNextMatch } from '../bracket';
 import { Bracket } from '../models/bracket.model';
 import { TournamentService } from './tournament.service';
 
-const [first, second] = tournaments;
+// Big enough for the picks the tests make
+const [first, second] = tournaments.filter(t => t.contestants.length >= 8);
 
 // A fresh service, as after a page refresh
 function reload(): TournamentService {

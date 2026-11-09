@@ -1,4 +1,4 @@
-import { bracketSize, createBracket, getChampion, getDraw, getMatch, getMatchWinner, getNextMatch, isBye, isByeMatch, isDrawnFrom, pickWinner, roundName, seedOrder } from './bracket';
+import { bracketSize, createBracket, getChampion, getDraw, getMatch, getMatchWinner, getNextMatch, getStatus, isBye, isByeMatch, isDrawnFrom, pickWinner, roundName, seedOrder } from './bracket';
 import { Bracket, SlotIndex } from './models/bracket.model';
 import { Contestant } from './models/contestant.model';
 
@@ -162,6 +162,19 @@ describe('pickWinner', () => {
 	it('refuses a match that is still waiting on an earlier one', () => {
 		const bracket = createBracket(makeContestants(4));
 		expect(() => pickWinner(bracket, { round: 1, match: 0 }, 0)).toThrow();
+	});
+});
+
+describe('getStatus', () => {
+	it('is not started with only byes decided, in progress after a vote, and finished once there is a champion', () => {
+		const bracket = createBracket(makeContestants(5));
+		expect(getStatus(bracket)).toBe('not-started');
+
+		pickWinner(bracket, getNextMatch(bracket)!, 0);
+		expect(getStatus(bracket)).toBe('in-progress');
+
+		playThrough(bracket);
+		expect(getStatus(bracket)).toBe('finished');
 	});
 });
 

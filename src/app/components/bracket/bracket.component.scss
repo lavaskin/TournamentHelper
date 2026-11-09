@@ -1,6 +1,7 @@
 :host {
-	// Slot height: as big as fits the viewport, so a 64-slot bracket (32 rows a side) fits on a 1080p screen
-	--slot: min(2.5rem, calc((100dvh - 7rem) / (var(--rows) * 1.25)));
+	// Slot height: as big as fits the viewport, so a 64-slot bracket (32 rows a side) fits on a 1080p screen.
+	// --bracket-reserve is the height the page needs around the bracket (7rem suits the play page overlay).
+	--slot: min(2.5rem, calc((100dvh - var(--bracket-reserve, 7rem)) / (var(--rows) * 1.25)));
 	// Half the gap between rounds, where the connector lines run
 	--link: 0.75rem;
 	--line: #3a3a3a;

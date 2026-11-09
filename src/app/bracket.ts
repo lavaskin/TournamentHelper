@@ -115,6 +115,16 @@ export function getChampion(bracket: Bracket): Contestant | null {
 	return getMatchWinner(final);
 }
 
+export type BracketStatus = 'not-started' | 'in-progress' | 'finished';
+
+// Bye matches are decided when the bracket is created, so only a decided real match means it's started
+export function getStatus(bracket: Bracket): BracketStatus {
+	if (getChampion(bracket)) return 'finished';
+
+	const started = bracket.rounds.some(round => round.some(match => match.winner !== null && !isByeMatch(match)));
+	return started ? 'in-progress' : 'not-started';
+}
+
 export function pickWinner(bracket: Bracket, position: MatchPosition, winner: SlotIndex): void {
 	const match = getMatch(bracket, position);
 	const [a, b] = match.slots;

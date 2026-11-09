@@ -1,14 +1,17 @@
-<div class="page flex col center pa-2 gap-3">
+<div class="page contestants flex col pa-1 gap-1">
 
-	<p class="h1">Contestants ({{ contestants().length }})</p>
+	<div class="flex row center gap-3">
+		<p class="h1">Contestants ({{ numContestants() }})</p>
 
-	<div class="flex row flex-wrap">
-		@for (c of contestants(); track c.name) {
-			<app-contestant [contestant]="c" [imageBg]="imageBg()"></app-contestant>
-		}
+		<app-button routerLink="play"
+			[label]="startLabel()"></app-button>
 	</div>
 
-	<app-button routerLink="play"
-		label="Start the Tournament"></app-button>
+	<!-- The reserve is the height above and below the bracket (padding, the row above, round names, nav bar), so it fits the screen -->
+	<app-bracket
+		style="--bracket-reserve: 12.5rem"
+		[bracket]="bracket()"
+		[current]="current()"
+		[imageBg]="imageBg()" />
 
 </div>
