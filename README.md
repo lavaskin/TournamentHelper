@@ -6,6 +6,8 @@ Contestants can optionally be given a `seed` (1 being the best). Seeds must be u
 
 Each tournament has its own URL (`/t/<slug>` for the contestants, `/t/<slug>/play` to vote). The bracket is drawn when a tournament is first opened and saved in the browser after every pick, so refreshing or leaving picks up where you left off. Use **restart** in the bottom bar to throw it away and draw a new one. A saved bracket is also redrawn automatically if the tournament's contestants change.
 
+While voting, **bracket** in the bottom bar shows the whole bracket (Escape or × closes it). The winner screen shows the finished bracket below the winner.
+
 This project uses [Angular](https://angular.dev) version 22.
 
 ## Running Locally

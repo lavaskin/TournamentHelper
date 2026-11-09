@@ -1,4 +1,4 @@
-import { bracketSize, createBracket, getChampion, getDraw, getMatch, getMatchWinner, getNextMatch, isBye, isByeMatch, isDrawnFrom, pickWinner, seedOrder } from './bracket';
+import { bracketSize, createBracket, getChampion, getDraw, getMatch, getMatchWinner, getNextMatch, isBye, isByeMatch, isDrawnFrom, pickWinner, roundName, seedOrder } from './bracket';
 import { Bracket, SlotIndex } from './models/bracket.model';
 import { Contestant } from './models/contestant.model';
 
@@ -162,6 +162,19 @@ describe('pickWinner', () => {
 	it('refuses a match that is still waiting on an earlier one', () => {
 		const bracket = createBracket(makeContestants(4));
 		expect(() => pickWinner(bracket, { round: 1, match: 0 }, 0)).toThrow();
+	});
+});
+
+describe('roundName', () => {
+	it('names rounds by the slots left', () => {
+		const bracket = createBracket(makeContestants(100));
+		expect(bracket.rounds.map((_, r) => roundName(bracket, r))).toEqual([
+			'Round of 128', 'Round of 64', 'Round of 32', 'Round of 16', 'Quarterfinals', 'Semifinals', 'Final',
+		]);
+	});
+
+	it("names a 2-contestant bracket's only round the final", () => {
+		expect(roundName(createBracket(makeContestants(2)), 0)).toBe('Final');
 	});
 });
 

@@ -1,18 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, linkedSignal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { TournamentService } from '../../services/tournament.service';
+import { BracketComponent } from '../bracket/bracket.component';
+import { getNextMatch } from '../../bracket';
 
 const COIN_FLIP_SPEED = 100; // ms
 
 @Component({
 	selector: 'app-nav-bar',
 	standalone: true,
-	imports: [CommonModule, RouterModule],
+	imports: [CommonModule, RouterModule, BracketComponent],
 	templateUrl: './nav-bar.component.html',
-	styleUrl: './nav-bar.component.scss'
+	styleUrl: './nav-bar.component.scss',
+	host: {
+		'(document:keydown.escape)': 'closeBracket()',
+	},
 })
 export class NavBarComponent {
 	public showCoin = signal(false);
@@ -22,14 +27,30 @@ export class NavBarComponent {
 	private _router: Router = inject(Router);
 	private _sTournament: TournamentService = inject(TournamentService);
 
-	// Whether a tournament's contestants or play page is showing (unknown slugs are redirected home)
-	public onTournament = toSignal(
+	private url = toSignal(
 		this._router.events.pipe(
 			filter(e => e instanceof NavigationEnd),
-			map(e => e.urlAfterRedirects.startsWith('/t/')),
+			map(e => e.urlAfterRedirects),
 		),
-		{ initialValue: false },
+		{ initialValue: '' },
 	);
+
+	// Whether a tournament's contestants or play page is showing (unknown slugs are redirected home)
+	public onTournament = computed(() => this.url().startsWith('/t/'));
+	public onPlay = computed(() => this.onTournament() && this.url().endsWith('/play'));
+
+	// The bracket overlay only reads the bracket, so opening and closing it never affects progress
+	public showBracket = linkedSignal({ source: this.url, computation: () => false });
+	public bracket = this._sTournament.bracket;
+	public currentMatch = computed(() => {
+		const bracket = this.bracket();
+		return bracket ? getNextMatch(bracket) : null;
+	});
+	public imageBg = computed(() => this._sTournament.tournament()?.imageBg ?? false);
+
+	public closeBracket(): void {
+		this.showBracket.set(false);
+	}
 
 	public restart(): void {
 		if (confirm('Restart the tournament? All picks will be lost.')) {

@@ -83,6 +83,13 @@ export function isDrawnFrom(bracket: Bracket, contestants: Contestant[]): boolea
 	return drawn.length === current.length && drawn.every((k, i) => k === current[i]);
 }
 
+// A round's name, from the number of bracket slots in it: Round of 64 ... Round of 16, Quarterfinals, Semifinals, Final
+export function roundName(bracket: Bracket, round: number): string {
+	const slots = bracket.rounds[round].length * 2;
+	const names: Record<number, string> = { 2: 'Final', 4: 'Semifinals', 8: 'Quarterfinals' };
+	return names[slots] ?? `Round of ${slots}`;
+}
+
 export function getMatch(bracket: Bracket, position: MatchPosition): Match {
 	return bracket.rounds[position.round][position.match];
 }
