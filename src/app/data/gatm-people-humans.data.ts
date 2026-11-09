@@ -8,7 +8,6 @@ const gatmPeopleHumanContestants: Contestant[] = [
 	{
 		name: 'Hannibal (Silence of the Lambs)',
 		thumbnailUrl: 'dudes/Hannibal.png',
-		weight: 2,
 	},
 	{
 		name: 'Rocky (Rocky)',
@@ -17,7 +16,6 @@ const gatmPeopleHumanContestants: Contestant[] = [
 	{
 		name: 'Jack (The House That Jack Built)',
 		thumbnailUrl: 'dudes/Jack.png',
-		weight: 2,
 	},
 	{
 		name: 'Christian Bale (Equilibrium)',
@@ -42,7 +40,6 @@ const gatmPeopleHumanContestants: Contestant[] = [
 	{
 		name: 'The Bride (Kill Bill)',
 		thumbnailUrl: 'dudes/The Bride.png',
-		weight: 6,
 	},
 	{
 		name: 'Paul Walker (Running Scared)',
@@ -51,7 +48,6 @@ const gatmPeopleHumanContestants: Contestant[] = [
 	{
 		name: 'Kevin (We Need to Talk About Kevin)',
 		thumbnailUrl: 'dudes/Kevin.png',
-		weight: 4,
 	},
 	{
 		name: 'Chud (Falling Down)',
@@ -60,7 +56,6 @@ const gatmPeopleHumanContestants: Contestant[] = [
 	{
 		name: 'Kevin James (Here Comes the Boom)',
 		thumbnailUrl: 'dudes/Kevin James.png',
-		weight: 3,
 	},
 	{
 		name: 'Jack Sparrow (Pirates of the Caribbean)',
@@ -69,7 +64,6 @@ const gatmPeopleHumanContestants: Contestant[] = [
 	{
 		name: 'Joker (Joker)',
 		thumbnailUrl: 'dudes/Joker.png',
-		weight: 5,
 	},
 	{
 		name: 'John Goodman (10 Cloverfield Lane)',
@@ -82,12 +76,10 @@ const gatmPeopleHumanContestants: Contestant[] = [
 	{
 		name: 'Rama (The Raid)',
 		thumbnailUrl: 'dudes/Rama.png',
-		weight: 6,
 	},
 	{
 		name: 'Hitler (Look Who\'s Back)',
 		thumbnailUrl: 'dudes/Hitler.png',
-		weight: 5,
 	},
 	{
 		name: 'Rorschach (Watchmen)',
@@ -120,7 +112,6 @@ const gatmPeopleHumanContestants: Contestant[] = [
 	{
 		name: 'Psychopath (Heathers)',
 		thumbnailUrl: 'dudes/Psychopath.png',
-		weight: 4,
 	},
 	{
 		name: 'Anton Chigurh (No Country for Old Men)',
@@ -137,7 +128,6 @@ const gatmPeopleHumanContestants: Contestant[] = [
 	{
 		name: 'Nacho (Nacho Libre)',
 		thumbnailUrl: 'dudes/Nacho Libre.png',
-		weight: 3,
 	},
 ];
 

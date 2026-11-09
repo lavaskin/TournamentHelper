@@ -28,7 +28,6 @@ const animalContestants: Contestant[] = [
 	{
 		name: 'Buffalo',
 		thumbnailUrl: 'buffalo.png',
-		weight: 2,
 	},
 	{
 		name: 'Cassowary',
@@ -49,7 +48,6 @@ const animalContestants: Contestant[] = [
 	{
 		name: 'Elephant',
 		thumbnailUrl: 'elephant.png',
-		weight: 2,
 	},
 	{
 		name: 'Emu',
@@ -74,7 +72,6 @@ const animalContestants: Contestant[] = [
 	{
 		name: 'Hyena',
 		thumbnailUrl: 'hyenas.png',
-		weight: 2,
 	},
 	{
 		name: 'Jaguar',
@@ -83,7 +80,6 @@ const animalContestants: Contestant[] = [
 	{
 		name: 'Komodo Dragon',
 		thumbnailUrl: 'komodo-dragon.png',
-		weight: 2,
 	},
 	{
 		name: 'Lemur',
@@ -100,7 +96,6 @@ const animalContestants: Contestant[] = [
 	{
 		name: 'Orangutan',
 		thumbnailUrl: 'orangutan.png',
-		weight: 2,
 	},
 	{
 		name: 'Pangolin',
@@ -117,7 +112,6 @@ const animalContestants: Contestant[] = [
 	{
 		name: 'Rhino',
 		thumbnailUrl: 'rhino.png',
-		weight: 2,
 	},
 	{
 		name: 'Snapping Turtle',

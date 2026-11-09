@@ -3,7 +3,7 @@
 	@if (!winner) {
 		<section class="flex row width-100 center gap-5">
 			<app-contestant
-				[contestant]="getLeftContestant()"
+				[contestant]="leftContestant!"
 				[isLeftSide]="true"
 				[isSelected]="leftSideSelected === true"
 				[imageBg]="imageBg"
@@ -15,7 +15,7 @@
 				</div>	
 	
 			<app-contestant
-				[contestant]="getRightContestant()"
+				[contestant]="rightContestant!"
 				[isSelected]="leftSideSelected === false"
 				[imageBg]="imageBg"
 				(onVote)="handleVote($event)"></app-contestant>

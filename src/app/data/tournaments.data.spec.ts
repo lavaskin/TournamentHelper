@@ -44,6 +44,28 @@ describe('Tournament data', () => {
 				expect(duplicates, `"${label}" has duplicate contestant names`).toEqual([]);
 			});
 
+			it('has valid seeds', () => {
+				const count = tournament.contestants.length;
+				const seeded = tournament.contestants.filter(c => c.seed !== undefined);
+				const seeds = new Set(seeded.map(c => c.seed!));
+				const problems: string[] = [];
+
+				for (const c of seeded) {
+					if (!Number.isInteger(c.seed) || c.seed! < 1 || c.seed! > count) {
+						problems.push(`${c.name}: seed ${c.seed} must be a whole number from 1 to ${count}`);
+					}
+					if (seeded.some(other => other !== c && other.seed === c.seed)) {
+						problems.push(`${c.name}: seed ${c.seed} is used more than once`);
+					}
+				}
+
+				for (let seed = 1; seed <= Math.max(0, ...seeds); seed++) {
+					if (!seeds.has(seed)) problems.push(`seed ${seed} is missing (seeds must run 1..K with no gaps)`);
+				}
+
+				expect(problems, `"${label}" has invalid seeds`).toEqual([]);
+			});
+
 			it('has an image file for every local thumbnail', () => {
 				const missing = tournament.contestants
 					.filter(c => !c.thumbnailUrl.startsWith('http'))
