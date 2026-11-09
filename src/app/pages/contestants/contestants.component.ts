@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Contestant } from '../../models/contestant.model';
 import { CommonModule } from '@angular/common';
 import { ContestantComponent } from '../../components/contestant/contestant.component';
-import { ButtonComponent } from "../../components/button/button.component";
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
 	selector: 'page-contestants',
@@ -17,7 +17,7 @@ export class ContestantsComponent {
 	public contestants: Contestant[] = [];
 	public numContestants: number = 0;
 	public imageBg: boolean = false;
-	
+
 	private _sTournament: TournamentService = inject(TournamentService);
 	private _router: Router = inject(Router);
 

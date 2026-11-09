@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Tournament } from '../../models/tournament.model';
 import { TournamentService } from '../../services/tournament.service';
 import { Router } from '@angular/router';
-import { ButtonComponent } from "../../components/button/button.component";
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
 	selector: 'page-home',

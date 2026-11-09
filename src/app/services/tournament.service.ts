@@ -1,9 +1,9 @@
-import { inject, Injectable } from "@angular/core";
-import { Contestant } from "../models/contestant.model";
-import { Tournament } from "../models/tournament.model";
-import { Bracket } from "../models/bracket.model";
-import { createBracket } from "../bracket";
-import { AlertService } from "./alert.service";
+import { inject, Injectable } from '@angular/core';
+import { Contestant } from '../models/contestant.model';
+import { Tournament } from '../models/tournament.model';
+import { Bracket } from '../models/bracket.model';
+import { createBracket } from '../bracket';
+import { AlertService } from './alert.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -26,7 +26,7 @@ export class TournamentService {
 		if (this.validateTournament() === false) {
 			return [];
 		}
-		
+
 		// Deep copy the contestants
 		const contestants: Contestant[] = JSON.parse(JSON.stringify(this._tournament!.contestants));
 		this.fixLocalThumbnails(contestants);

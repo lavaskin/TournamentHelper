@@ -8,12 +8,12 @@
 				[isSelected]="leftSideSelected === true"
 				[imageBg]="imageBg"
 				(onVote)="handleVote($event)"></app-contestant>
-	
+
 				<div class="flex col gap-1 center">
 					<p class="h1 text-center">Round {{ round }}</p>
 					<p class="h3 subtext" *ngIf="roundAddendum !== null">{{ roundAddendum }}</p>
-				</div>	
-	
+				</div>
+
 			<app-contestant
 				[contestant]="rightContestant!"
 				[isSelected]="leftSideSelected === false"

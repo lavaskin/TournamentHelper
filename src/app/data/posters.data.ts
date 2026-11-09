@@ -1,4 +1,4 @@
-import { Contestant } from "../models/contestant.model";
+import { Contestant } from '../models/contestant.model';
 
 const posterContestants: Contestant[] = [
 	{
@@ -129,7 +129,7 @@ const posterContestants: Contestant[] = [
 		name: 'Die Hard (1988)',
 		thumbnailUrl: 'https://image.tmdb.org/t/p/original/7Bjd8kfmDSOzpmhySpEhkUyK2oH.jpg',
 	},
-		
+
 	/*
 	{
 		name: '',

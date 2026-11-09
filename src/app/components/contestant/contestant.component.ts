@@ -11,17 +11,17 @@ import { CommonModule } from '@angular/common';
 })
 export class ContestantComponent {
 	@Input() public contestant!: Contestant;
-    @Input() public isLeftSide: boolean = false;
-    @Input() public isSelected: boolean = false;
-    @Input() public canBeSelected: boolean = true;
-    @Input() public imageBg: boolean = false;
+	@Input() public isLeftSide: boolean = false;
+	@Input() public isSelected: boolean = false;
+	@Input() public canBeSelected: boolean = true;
+	@Input() public imageBg: boolean = false;
 
-    @Output() public onVote: EventEmitter<boolean> = new EventEmitter<boolean>();
-    
-    public onClick(): void {
-        if (!this.canBeSelected) return;
-        
-        // Tell the parent it's been clicked
-        this.onVote.emit(this.isLeftSide);
-    }
+	@Output() public onVote: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+	public onClick(): void {
+		if (!this.canBeSelected) return;
+
+		// Tell the parent it's been clicked
+		this.onVote.emit(this.isLeftSide);
+	}
 }

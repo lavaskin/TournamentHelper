@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, Renderer2, signal, ViewChild } from '@an
 import { RouterOutlet } from '@angular/router';
 import { AlertService } from './services/alert.service';
 import { CommonModule } from '@angular/common';
-import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @Component({
 	selector: 'app-root',
@@ -15,15 +15,15 @@ import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 			<router-outlet></router-outlet>
 
 			<!-- Global Alert Display -->
-			 @if (showAlert()) {
+			@if (showAlert()) {
 				<div #alert
 					class="alert p"
 					(click)="closeAlert()"
 					tabindex="0">
-					
+
 					<span>{{ alertMessage() }}</span>
 				</div>
-			 }
+			}
 		</div>
 	`,
 	styles: `
@@ -93,7 +93,7 @@ export class AppComponent {
 			}
 		});
 	}
-	
+
 	public closeAlert(): void {
 		this._alertService.closeAlert();
 	}

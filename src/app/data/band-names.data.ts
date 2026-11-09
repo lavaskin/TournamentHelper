@@ -1,4 +1,4 @@
-import { Contestant } from "../models/contestant.model";
+import { Contestant } from '../models/contestant.model';
 
 const bandNameContestants: Contestant[] = [
 	{ name: '30 Seconds To Mars', thumbnailUrl: '30SecondsToMars.png' },

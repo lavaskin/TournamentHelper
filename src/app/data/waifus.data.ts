@@ -1,4 +1,4 @@
-import { Contestant } from "../models/contestant.model";
+import { Contestant } from '../models/contestant.model';
 
 const waifuContestants: Contestant[] = [
 	// Pokémon (https://www.youtube.com/watch?v=KgG_kUF7Zpk)
