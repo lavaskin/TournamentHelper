@@ -1,5 +1,16 @@
 <nav>
 	<ul class="flex row gap-1">
+		@if (onPlay()) {
+			<li class="clickable"
+				(click)="showBracket.set(!showBracket())"
+				[ngClass]="{ active: showBracket() }">
+
+				<span>bracket</span>
+			</li>
+
+			<li><span>/</span></li>
+		}
+
 		@if (onTournament()) {
 			<li class="clickable"
 				(click)="restart()">
@@ -26,6 +37,19 @@
 		</li>
 	</ul>
 </nav>
+
+@if (showBracket() && onPlay() && bracket(); as bracket) {
+	<div class="bracket-overlay">
+		<button class="close clickable"
+			(click)="closeBracket()"
+			aria-label="Close the bracket">&times;</button>
+
+		<app-bracket
+			[bracket]="bracket"
+			[current]="currentMatch()"
+			[imageBg]="imageBg()" />
+	</div>
+}
 
 @if (showCoin()) {
 	<div class="coin"

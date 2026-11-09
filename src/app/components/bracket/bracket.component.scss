@@ -1,0 +1,198 @@
+:host {
+	// Slot height: as big as fits the viewport, so a 64-slot bracket (32 rows a side) fits on a 1080p screen
+	--slot: min(2.5rem, calc((100dvh - 7rem) / (var(--rows) * 1.25)));
+	// Half the gap between rounds, where the connector lines run
+	--link: 0.75rem;
+	--line: #3a3a3a;
+
+	display: block;
+	color: var(--text);
+}
+
+.bracket {
+	display: flex;
+	justify-content: center;
+}
+
+// Columns from both sides share the bracket's width evenly
+.side {
+	display: contents;
+}
+
+// The right side is mirrored, so inline-start/end (and connectors) point towards the final
+.right {
+	direction: rtl;
+}
+
+.column {
+	flex: 1 1 0;
+	min-width: 0;
+	max-width: 20rem;
+}
+
+.round-name {
+	height: 1.5rem;
+	font-size: 0.85rem;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--subtext);
+}
+
+.cells {
+	display: flex;
+	flex-direction: column;
+	height: calc(var(--rows) * 1.25 * var(--slot));
+}
+
+.cell {
+	flex: 1;
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding-inline: var(--link);
+}
+
+// Connectors: a stub out of each match, and a vertical line joining each pair
+.side .cell {
+	&::after,
+	&::before {
+		content: '';
+		position: absolute;
+		inset-inline-end: 0;
+	}
+
+	&::after {
+		top: 50%;
+		width: var(--link);
+		border-top: 1px solid var(--line);
+	}
+
+	&::before {
+		border-inline-end: 1px solid var(--line);
+	}
+
+	&:nth-child(odd)::before {
+		top: 50%;
+		bottom: 0;
+	}
+
+	&:nth-child(even)::before {
+		top: 0;
+		bottom: 50%;
+	}
+
+	&:only-child::before {
+		display: none;
+	}
+}
+
+// Stubs into matches fed by an earlier round
+.fed .match::before,
+.final:not(.alone) .match::before,
+.final:not(.alone) .match::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	width: var(--link);
+	border-top: 1px solid var(--line);
+}
+
+.fed .match::before {
+	inset-inline-start: calc(-1 * var(--link) - 1px);
+}
+
+.final .match {
+	&::before {
+		left: calc(-1 * var(--link) - 1px);
+	}
+
+	&::after {
+		right: calc(-1 * var(--link) - 1px);
+	}
+}
+
+.match {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	background-color: #141414;
+	border: 1px solid var(--line);
+	border-radius: 0.3rem;
+
+	&.current {
+		outline: 2px solid var(--text);
+		outline-offset: 1px;
+	}
+}
+
+.slot {
+	display: flex;
+	align-items: center;
+	gap: calc(var(--slot) * 0.25);
+	height: var(--slot);
+	padding-inline-end: calc(var(--slot) * 0.25);
+	font-size: calc(var(--slot) * 0.55);
+	overflow: hidden;
+
+	& + & {
+		border-top: 1px solid var(--line);
+	}
+
+	&.won {
+		font-weight: bold;
+		background-color: #262626;
+	}
+
+	&.lost {
+		opacity: 0.35;
+	}
+
+	&.champion {
+		color: gold;
+	}
+
+	&.bye {
+		opacity: 0.5;
+		font-style: italic;
+		color: var(--subtext);
+		padding-inline-start: calc(var(--slot) * 0.3);
+	}
+}
+
+img {
+	flex: none;
+	height: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+
+	&.image-bg {
+		object-fit: contain;
+		background-color: #e0e0e0;
+	}
+}
+
+.seed {
+	flex: none;
+	min-width: 1.4em;
+	padding: 0 0.2em;
+	border-radius: 0.3em;
+	font-size: 0.75em;
+	text-align: center;
+	background-color: var(--line);
+	color: var(--subtext);
+}
+
+.name {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	// Names stay left-to-right on the mirrored side, so punctuation isn't moved
+	direction: ltr;
+}
+
+.right .name {
+	text-align: right;
+}

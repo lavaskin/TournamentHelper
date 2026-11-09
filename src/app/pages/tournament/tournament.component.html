@@ -12,6 +12,8 @@
 
 			<app-button label="Home" routerLink="/home"></app-button>
 		</section>
+
+		<app-bracket class="width-100" [bracket]="bracket()" [imageBg]="imageBg()" />
 	} @else {
 		<section class="flex row width-100 center gap-5">
 			<app-contestant

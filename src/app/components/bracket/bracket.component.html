@@ -1,0 +1,58 @@
+<div class="bracket">
+	<div class="side">
+		@for (column of left(); track column.round) {
+			<ng-container [ngTemplateOutlet]="columnTemplate" [ngTemplateOutletContext]="{ $implicit: column }" />
+		}
+	</div>
+
+	<div class="column final" [class.alone]="left().length === 0">
+		<p class="round-name">{{ final().name }}</p>
+		<div class="cells">
+			<div class="cell">
+				<ng-container [ngTemplateOutlet]="matchTemplate" [ngTemplateOutletContext]="{ $implicit: final().match }" />
+			</div>
+		</div>
+	</div>
+
+	<div class="side right">
+		@for (column of right(); track column.round) {
+			<ng-container [ngTemplateOutlet]="columnTemplate" [ngTemplateOutletContext]="{ $implicit: column }" />
+		}
+	</div>
+</div>
+
+<ng-template #columnTemplate let-column>
+	<div class="column" [class.fed]="column.round > 0">
+		<p class="round-name">{{ column.name }}</p>
+		<div class="cells">
+			@for (match of column.matches; track match.position.match) {
+				<div class="cell">
+					<ng-container [ngTemplateOutlet]="matchTemplate" [ngTemplateOutletContext]="{ $implicit: match }" />
+				</div>
+			}
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #matchTemplate let-match>
+	<div class="match" [class.current]="match.current">
+		@for (slot of match.slots; track $index) {
+			<div class="slot"
+				[class.won]="slot.won"
+				[class.lost]="slot.lost"
+				[class.bye]="slot.bye"
+				[class.champion]="slot.champion">
+
+				@if (slot.contestant; as contestant) {
+					<img [src]="contestant.thumbnailUrl" [class.image-bg]="imageBg()" alt="">
+					@if (contestant.seed) {
+						<span class="seed">{{ contestant.seed }}</span>
+					}
+					<span class="name" [title]="contestant.name">{{ contestant.name }}</span>
+				} @else if (slot.bye) {
+					<span class="name">BYE</span>
+				}
+			</div>
+		}
+	</div>
+</ng-template>

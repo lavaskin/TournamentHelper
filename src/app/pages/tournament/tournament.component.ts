@@ -5,13 +5,14 @@ import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../services/tournament.service';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
+import { BracketComponent } from '../../components/bracket/bracket.component';
 import { Bracket } from '../../models/bracket.model';
 import { getChampion, getMatch, getNextMatch } from '../../bracket';
 
 @Component({
 	selector: 'page-tournament',
 	standalone: true,
-	imports: [ContestantComponent, ButtonComponent, CommonModule, RouterModule],
+	imports: [ContestantComponent, ButtonComponent, BracketComponent, CommonModule, RouterModule],
 	templateUrl: './tournament.component.html',
 	// styleUrl: './tournament.component.scss'
 })
@@ -19,7 +20,7 @@ export class TournamentComponent {
 	private _sTournament: TournamentService = inject(TournamentService);
 
 	// The route resolver opens the tournament before this page loads
-	private bracket = computed(() => this._sTournament.bracket()!);
+	public bracket = computed(() => this._sTournament.bracket()!);
 	private position = computed(() => getNextMatch(this.bracket()));
 
 	public imageBg = computed(() => this._sTournament.tournament()!.imageBg ?? false);
