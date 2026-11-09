@@ -23,12 +23,42 @@
 				[imageBg]="imageBg()"
 				(onVote)="handleVote($event)"></app-contestant>
 
-				<div class="flex col gap-1 center">
-					<p class="h1 text-center">Round {{ round() }}</p>
-					@if (roundAddendum(); as addendum) {
-						<p class="h3 subtext">{{ addendum }}</p>
-					}
-				</div>
+			<div class="status flex col center">
+				<p class="h1 text-center round-name">{{ roundName() }}</p>
+				@if (progress(); as progress) {
+					<p class="h3 subtext match-progress">Match {{ progress.number }} of {{ progress.of }}</p>
+				}
+
+				@if (upNext(); as upNext) {
+					<div class="up-next">
+						<p class="label">
+							Up next
+							@if (upNext.round) {
+								<span>· {{ upNext.round }}</span>
+							}
+						</p>
+
+						@for (slot of upNext.slots; track $index) {
+							@if (!$first) {
+								<p class="vs">vs</p>
+							}
+
+							<div class="slot">
+								@if (slot) {
+									<img [src]="slot.thumbnailUrl" [class.image-bg]="imageBg()" alt="">
+									@if (slot.seed) {
+										<span class="seed-badge">{{ slot.seed }}</span>
+									}
+									<span class="name" [title]="slot.name">{{ slot.name }}</span>
+								} @else {
+									<span class="tbd">?</span>
+									<span class="name">Winner of this match</span>
+								}
+							</div>
+						}
+					</div>
+				}
+			</div>
 
 			<app-contestant
 				[contestant]="rightContestant()!"

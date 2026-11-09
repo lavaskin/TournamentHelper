@@ -5,6 +5,7 @@
 
 	--text: #f8f8ff;
 	--subtext: #c5c5c5;
+	--line: #3a3a3a;
 }
 
 .page {
@@ -86,6 +87,19 @@
 .subtext { color: #c5c5c5; }
 .gold { color: gold; }
 .text-center { text-align: center; }
+
+// A contestant's seed, next to their name. Sized from the text around it.
+.seed-badge {
+	display: inline-block;
+	flex: none;
+	min-width: 1.4em;
+	padding: 0 0.2em;
+	border-radius: 0.3em;
+	font-size: 0.75em;
+	text-align: center;
+	background-color: var(--line);
+	color: var(--subtext);
+}
 
 .clickable { cursor: pointer; }
 .disabled {

@@ -5,5 +5,10 @@
 		[class.image-bg]="imageBg"
 		(click)="onClick()">
 
-	<p [style.text-align]="isLeftSide ? 'left' : 'right'">{{ contestant.name }}</p>
+	<p [style.text-align]="isLeftSide ? 'left' : 'right'">
+		@if (contestant.seed) {
+			<span class="seed-badge">{{ contestant.seed }}</span>
+		}
+		<span class="name">{{ contestant.name }}</span>
+	</p>
 </div>

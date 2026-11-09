@@ -49,7 +49,7 @@
 						[alt]="contestant.name"
 						(click)="enlarge(contestant)">
 					@if (contestant.seed) {
-						<span class="seed">{{ contestant.seed }}</span>
+						<span class="seed-badge">{{ contestant.seed }}</span>
 					}
 					<span class="name" [title]="contestant.name">{{ contestant.name }}</span>
 				} @else if (slot.bye) {

@@ -1,4 +1,4 @@
-import { Bracket, BracketSlot, BYE, Match, MatchPosition, SlotIndex } from './models/bracket.model';
+import { Bracket, BracketSlot, BYE, Match, MatchPosition, MatchProgress, SlotIndex } from './models/bracket.model';
 import { Contestant } from './models/contestant.model';
 import Utils from './utils';
 
@@ -105,6 +105,28 @@ export function getMatchWinner(match: Match): Contestant | null {
 export function getNextMatch(bracket: Bracket): MatchPosition | null {
 	for (let round = 0; round < bracket.rounds.length; round++) {
 		const match = bracket.rounds[round].findIndex(m => m.winner === null);
+		if (match !== -1) return { round, match };
+	}
+	return null;
+}
+
+export function getMatchProgress(bracket: Bracket, position: MatchPosition): MatchProgress {
+	const real = bracket.rounds[position.round]
+		.map((match, m) => ({ match, m }))
+		.filter(({ match }) => !isByeMatch(match));
+
+	return {
+		number: real.findIndex(({ m }) => m === position.match) + 1,
+		of: real.length,
+	};
+}
+
+// The match played after `position`, or null if it's the final.
+// With `position` from getNextMatch, every earlier match is decided, so an empty slot in the result is waiting on the winner of `position`.
+export function getMatchAfter(bracket: Bracket, position: MatchPosition): MatchPosition | null {
+	for (let round = position.round; round < bracket.rounds.length; round++) {
+		const from = round === position.round ? position.match + 1 : 0;
+		const match = bracket.rounds[round].findIndex((m, i) => i >= from && m.winner === null);
 		if (match !== -1) return { round, match };
 	}
 	return null;

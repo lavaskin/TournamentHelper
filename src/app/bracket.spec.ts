@@ -1,4 +1,4 @@
-import { bracketSize, createBracket, getChampion, getDraw, getMatch, getMatchWinner, getNextMatch, getStatus, isBye, isByeMatch, isDrawnFrom, pickWinner, roundName, seedOrder } from './bracket';
+import { bracketSize, createBracket, getChampion, getDraw, getMatch, getMatchAfter, getMatchProgress, getMatchWinner, getNextMatch, getStatus, isBye, isByeMatch, isDrawnFrom, pickWinner, roundName, seedOrder } from './bracket';
 import { Bracket, SlotIndex } from './models/bracket.model';
 import { Contestant } from './models/contestant.model';
 
@@ -188,6 +188,60 @@ describe('roundName', () => {
 
 	it("names a 2-contestant bracket's only round the final", () => {
 		expect(roundName(createBracket(makeContestants(2)), 0)).toBe('Final');
+	});
+});
+
+describe('getMatchProgress', () => {
+	for (const count of [5, 24, 40, 64]) {
+		it(`numbers the real matches of each round for ${count} contestants, never counting byes`, () => {
+			const bracket = createBracket(makeContestants(count, Math.floor(count / 4)), true);
+			const size = bracketSize(count);
+			const seen: Record<number, number[]> = {};
+
+			for (let position = getNextMatch(bracket); position; position = getNextMatch(bracket)) {
+				const { number, of } = getMatchProgress(bracket, position);
+				const real = bracket.rounds[position.round].filter(m => !isByeMatch(m)).length;
+
+				expect(of).toBe(real);
+				(seen[position.round] ??= []).push(number);
+				pickWinner(bracket, position, 0);
+			}
+
+			// Round 1 has a real match for each contestant beyond half the bracket, every later round is full
+			const expected = bracket.rounds.map((matches, r) => r === 0 ? count - size / 2 : matches.length);
+			expect(Object.values(seen)).toEqual(expected.map(n => Array.from({ length: n }, (_, i) => i + 1)));
+		});
+	}
+});
+
+describe('getMatchAfter', () => {
+	for (const count of [2, 5, 24, 40, 64]) {
+		it(`previews the match played next throughout a ${count}-contestant bracket`, () => {
+			const bracket = createBracket(makeContestants(count), true);
+
+			for (let position = getNextMatch(bracket); position; position = getNextMatch(bracket)) {
+				const after = getMatchAfter(bracket, position);
+				const before = after && structuredClone(getMatch(bracket, after).slots);
+
+				pickWinner(bracket, position, Math.random() < 0.5 ? 0 : 1);
+
+				// It's the match that comes up next, and any empty slot in it was waiting on this one's winner
+				expect(getNextMatch(bracket)).toEqual(after);
+				if (after) {
+					const winner = getMatchWinner(getMatch(bracket, position));
+					const slots = getMatch(bracket, after).slots;
+					before!.forEach((slot, i) => expect(slots[i]).toEqual(slot ?? winner));
+				}
+			}
+		});
+	}
+
+	it('has nothing after the final', () => {
+		const bracket = createBracket(makeContestants(4));
+		pickWinner(bracket, { round: 0, match: 0 }, 0);
+		pickWinner(bracket, { round: 0, match: 1 }, 0);
+
+		expect(getMatchAfter(bracket, { round: 1, match: 0 })).toBeNull();
 	});
 });
 

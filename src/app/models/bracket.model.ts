@@ -24,3 +24,9 @@ export interface MatchPosition {
 	round: number,
 	match: number,
 }
+
+// Where a match is in its round, counting only real matches: { number: 1, of: 8 } is "Match 1 of 8"
+export interface MatchProgress {
+	number: number,
+	of: number,
+}
