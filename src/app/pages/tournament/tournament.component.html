@@ -1,31 +1,6 @@
 <div class="page flex col gap-5 pa-5">
 
-	@if (!winner) {
-		<section class="flex row width-100 center gap-5">
-			<app-contestant
-				[contestant]="leftContestant!"
-				[isLeftSide]="true"
-				[isSelected]="leftSideSelected === true"
-				[imageBg]="imageBg"
-				(onVote)="handleVote($event)"></app-contestant>
-
-				<div class="flex col gap-1 center">
-					<p class="h1 text-center">Round {{ round }}</p>
-					<p class="h3 subtext" *ngIf="roundAddendum !== null">{{ roundAddendum }}</p>
-				</div>
-
-			<app-contestant
-				[contestant]="rightContestant!"
-				[isSelected]="leftSideSelected === false"
-				[imageBg]="imageBg"
-				(onVote)="handleVote($event)"></app-contestant>
-		</section>
-
-		<app-button label="Next"
-			(click)="nextRound()"
-			[disabled]="leftSideSelected === null"
-			class="mx-auto"></app-button>
-	} @else {
+	@if (winner(); as winner) {
 		<section class="flex col width-100 center gap-5">
 			<p class="h1 gold">Winner!</p>
 
@@ -33,10 +8,37 @@
 				[isLeftSide]="true"
 				[contestant]="winner"
 				[canBeSelected]="false"
-				[imageBg]="imageBg"></app-contestant>
+				[imageBg]="imageBg()"></app-contestant>
 
-			<app-button label="Home" routerLink="home"></app-button>
+			<app-button label="Home" routerLink="/home"></app-button>
 		</section>
+	} @else {
+		<section class="flex row width-100 center gap-5">
+			<app-contestant
+				[contestant]="leftContestant()!"
+				[isLeftSide]="true"
+				[isSelected]="leftSideSelected() === true"
+				[imageBg]="imageBg()"
+				(onVote)="handleVote($event)"></app-contestant>
+
+				<div class="flex col gap-1 center">
+					<p class="h1 text-center">Round {{ round() }}</p>
+					@if (roundAddendum(); as addendum) {
+						<p class="h3 subtext">{{ addendum }}</p>
+					}
+				</div>
+
+			<app-contestant
+				[contestant]="rightContestant()!"
+				[isSelected]="leftSideSelected() === false"
+				[imageBg]="imageBg()"
+				(onVote)="handleVote($event)"></app-contestant>
+		</section>
+
+		<app-button label="Next"
+			(click)="nextRound()"
+			[disabled]="leftSideSelected() === null"
+			class="mx-auto"></app-button>
 	}
 
 </div>

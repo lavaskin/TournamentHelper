@@ -1,14 +1,14 @@
 <div class="page flex col center pa-2 gap-3">
 
-	<p class="h1">Contestants ({{ numContestants }})</p>
+	<p class="h1">Contestants ({{ contestants().length }})</p>
 
 	<div class="flex row flex-wrap">
-		@for (c of contestants; track $index) {
-			<app-contestant [contestant]="c" [imageBg]="imageBg"></app-contestant>
+		@for (c of contestants(); track c.name) {
+			<app-contestant [contestant]="c" [imageBg]="imageBg()"></app-contestant>
 		}
 	</div>
 
-	<app-button routerLink="/tournament"
+	<app-button routerLink="play"
 		label="Start the Tournament"></app-button>
 
 </div>

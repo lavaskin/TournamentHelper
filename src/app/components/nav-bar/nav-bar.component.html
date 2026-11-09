@@ -1,5 +1,15 @@
 <nav>
 	<ul class="flex row gap-1">
+		@if (onTournament()) {
+			<li class="clickable"
+				(click)="restart()">
+
+				<span>restart</span>
+			</li>
+
+			<li><span>/</span></li>
+		}
+
 		<li class="clickable"
 			(click)="flipCoin()"
 			[ngClass]="{ disabled: showCoin() }">
@@ -10,7 +20,7 @@
 		<li><span>/</span></li>
 
 		<li class="clickable"
-			(click)="goHome()">
+			routerLink="/home">
 
 			<span>home</span>
 		</li>

@@ -4,6 +4,8 @@ Single-elimination tournament bracket simulator. Tournaments can have any number
 
 Contestants can optionally be given a `seed` (1 being the best). Seeds must be unique and run 1, 2, 3... with no gaps. Seeded contestants get byes first and are placed so the top seeds can only meet in later rounds (1 and 2 in the final, 1 to 4 in the semifinals, and so on). Everyone else is shuffled into the remaining slots.
 
+Each tournament has its own URL (`/t/<slug>` for the contestants, `/t/<slug>/play` to vote). The bracket is drawn when a tournament is first opened and saved in the browser after every pick, so refreshing or leaving picks up where you left off. Use **restart** in the bottom bar to throw it away and draw a new one. A saved bracket is also redrawn automatically if the tournament's contestants change.
+
 This project uses [Angular](https://angular.dev) version 22.
 
 ## Running Locally
