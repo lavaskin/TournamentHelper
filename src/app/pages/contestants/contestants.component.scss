@@ -1,0 +1,8 @@
+// Fills the screen so small brackets sit in the middle, while big ones fill it.
+// The bottom padding keeps the bracket clear of the nav bar, and is part of the bracket's reserve in the template.
+.contestants {
+	box-sizing: border-box;
+	min-height: 100dvh;
+	padding-bottom: 3.5rem;
+	justify-content: safe center;
+}

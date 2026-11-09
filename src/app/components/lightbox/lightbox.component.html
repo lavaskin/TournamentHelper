@@ -1,0 +1,21 @@
+@if (lightbox.image(); as image) {
+	<div class="lightbox"
+		role="dialog"
+		aria-modal="true"
+		[attr.aria-label]="image.name"
+		(click)="lightbox.close()">
+
+		<div class="stage">
+			<img #img
+				[src]="image.url"
+				[alt]="image.name"
+				[class.image-bg]="image.imageBg"
+				[style.--ratio]="ratio()"
+				(load)="onLoad(img)">
+		</div>
+
+		<p class="caption">{{ image.name }}</p>
+
+		<button class="close" aria-label="Close the image">&times;</button>
+	</div>
+}
