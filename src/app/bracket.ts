@@ -110,6 +110,29 @@ export function getNextMatch(bracket: Bracket): MatchPosition | null {
 	return null;
 }
 
+// Where a match is in its round, counting only real matches: { number: 1, of: 8 } is "Match 1 of 8"
+export function getMatchProgress(bracket: Bracket, position: MatchPosition): { number: number, of: number } {
+	const real = bracket.rounds[position.round]
+		.map((match, m) => ({ match, m }))
+		.filter(({ match }) => !isByeMatch(match));
+
+	return {
+		number: real.findIndex(({ m }) => m === position.match) + 1,
+		of: real.length,
+	};
+}
+
+// The match played after `position`, or null if it's the final.
+// With `position` from getNextMatch, every earlier match is decided, so an empty slot in the result is waiting on the winner of `position`.
+export function getMatchAfter(bracket: Bracket, position: MatchPosition): MatchPosition | null {
+	for (let round = position.round; round < bracket.rounds.length; round++) {
+		const from = round === position.round ? position.match + 1 : 0;
+		const match = bracket.rounds[round].findIndex((m, i) => i >= from && m.winner === null);
+		if (match !== -1) return { round, match };
+	}
+	return null;
+}
+
 export function getChampion(bracket: Bracket): Contestant | null {
 	const final = bracket.rounds[bracket.rounds.length - 1][0];
 	return getMatchWinner(final);

@@ -61,7 +61,7 @@ describe('BracketComponent', () => {
 
 	it('shows seed badges only for seeded contestants', () => {
 		const el = render(createBracket(makeContestants(8, 3)));
-		expect(texts(el, '.seed').sort()).toEqual(['1', '2', '3']);
+		expect(texts(el, '.seed-badge').sort()).toEqual(['1', '2', '3']);
 	});
 
 	it('highlights the current match', () => {
