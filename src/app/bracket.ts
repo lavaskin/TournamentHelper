@@ -1,4 +1,4 @@
-import { Bracket, BracketSlot, BYE, Match, MatchPosition, SlotIndex } from './models/bracket.model';
+import { Bracket, BracketSlot, BYE, Match, MatchPosition, MatchProgress, SlotIndex } from './models/bracket.model';
 import { Contestant } from './models/contestant.model';
 import Utils from './utils';
 
@@ -110,8 +110,7 @@ export function getNextMatch(bracket: Bracket): MatchPosition | null {
 	return null;
 }
 
-// Where a match is in its round, counting only real matches: { number: 1, of: 8 } is "Match 1 of 8"
-export function getMatchProgress(bracket: Bracket, position: MatchPosition): { number: number, of: number } {
+export function getMatchProgress(bracket: Bracket, position: MatchPosition): MatchProgress {
 	const real = bracket.rounds[position.round]
 		.map((match, m) => ({ match, m }))
 		.filter(({ match }) => !isByeMatch(match));

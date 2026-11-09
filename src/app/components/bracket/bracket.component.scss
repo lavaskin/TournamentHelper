@@ -4,7 +4,6 @@
 	--slot: min(2.5rem, calc((100dvh - var(--bracket-reserve, 7rem)) / (var(--rows) * 1.25)));
 	// Half the gap between rounds, where the connector lines run
 	--link: 0.75rem;
-	--line: #3a3a3a;
 
 	display: block;
 	color: var(--text);

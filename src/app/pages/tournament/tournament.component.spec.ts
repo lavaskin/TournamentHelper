@@ -45,27 +45,32 @@ function render(contestants: Contestant[]) {
 	const text = (selector: string) => el.querySelector(selector)?.textContent!.trim().replace(/\s+/g, ' ') ?? null;
 	const texts = (selector: string) => [...el.querySelectorAll(selector)].map(e => e.textContent!.trim());
 
-	// Votes for the left contestant and moves on
-	const pickLeft = () => {
-		(el.querySelector('app-contestant img') as HTMLElement).click();
+	// Votes for the contestant on that side and moves on
+	const pick = (side: SlotIndex) => {
+		(el.querySelectorAll('app-contestant img')[side] as HTMLElement).click();
 		fixture.detectChanges();
 		(el.querySelector('app-button') as HTMLElement).click();
 		fixture.detectChanges();
 	};
 
-	return { service, el, text, texts, pickLeft };
+	// The seed badges expected for these names, in order
+	const seedsOf = (names: string[]) => names
+		.map(name => contestants.find(c => c.name === name)?.seed)
+		.filter(seed => seed !== undefined)
+		.map(String);
+
+	return { service, el, text, texts, pick, seedsOf };
 }
 
 describe('TournamentComponent', () => {
 	for (const count of [5, 24, 40, 64]) {
 		it(`shows the round, match progress, seeds and next match through a ${count}-contestant playthrough`, () => {
-			const contestants = makeContestants(count, 4);
-			const { service, el, text, texts, pickLeft } = render(contestants);
+			const { service, el, text, texts, pick, seedsOf } = render(makeContestants(count, 4));
 			const bracket = () => service.bracket()!;
 
-			// Round names by the slots in the round, from the full bracket size down
+			// Round names by the slots in the round, from the next power of 2 down (40 contestants start in the Round of 64)
 			const names: string[] = [];
-			for (let slots = bracket().rounds[0].length * 2; slots >= 2; slots /= 2) {
+			for (let slots = 2 ** Math.ceil(Math.log2(count)); slots >= 2; slots /= 2) {
 				names.push({ 8: 'Quarterfinals', 4: 'Semifinals', 2: 'Final' }[slots] ?? `Round of ${slots}`);
 			}
 
@@ -87,27 +92,39 @@ describe('TournamentComponent', () => {
 				expect(text('.match-progress')).toBe(real > 1 ? `Match ${number} of ${real}` : null);
 				expect(el.textContent).not.toMatch(/Quarters|Semi's|Finals|Round \d/);
 
-				const seeds = current.map(name => contestants.find(c => c.name === name)!.seed).filter(s => s !== undefined).map(String);
-				expect(texts('app-contestant .seed-badge')).toEqual(seeds);
+				expect(texts('app-contestant .seed-badge')).toEqual(seedsOf(current));
 
 				const isFinal = round === bracket().rounds.length - 1;
 				expect(el.querySelector('.up-next') === null).toBe(isFinal);
 
-				preview = texts('.up-next .name').map(name => name === 'Winner of this match' ? current[0] : name);
-				pickLeft();
+				const upNext = texts('.up-next .name');
+				expect(texts('.up-next .seed-badge')).toEqual(seedsOf(upNext));
+
+				const side: SlotIndex = Math.random() < 0.5 ? 0 : 1;
+				preview = upNext.map(name => name === 'Winner of this match' ? current[side] : name);
+				pick(side);
 			}
 
 			expect(text('.h1')).toBe('Winner!');
+			expect(texts('app-contestant .seed-badge')).toEqual(seedsOf(texts('app-contestant .name')));
 		});
 	}
 
 	it('names the round the next match starts, and only when it changes', () => {
-		const { text, pickLeft } = render(makeContestants(8));
+		const { text, pick } = render(makeContestants(8));
 
 		expect(text('.up-next .label')).toBe('Up next');
-		pickLeft();
-		pickLeft();
-		pickLeft();
+		pick(0);
+		pick(0);
+		pick(0);
 		expect(text('.up-next .label')).toBe('Up next · Semifinals');
+	});
+
+	it('shows the seed badge on the winner screen', () => {
+		const { text, texts, pick } = render(makeContestants(2, 2));
+
+		pick(0);
+		expect(text('.h1')).toBe('Winner!');
+		expect(texts('app-contestant .seed-badge')).toEqual(['1']);
 	});
 });

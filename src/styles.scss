@@ -5,6 +5,7 @@
 
 	--text: #f8f8ff;
 	--subtext: #c5c5c5;
+	--line: #3a3a3a;
 }
 
 .page {
@@ -96,7 +97,7 @@
 	border-radius: 0.3em;
 	font-size: 0.75em;
 	text-align: center;
-	background-color: #3a3a3a;
+	background-color: var(--line);
 	color: var(--subtext);
 }
 
