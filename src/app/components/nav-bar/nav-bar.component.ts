@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter, map } from 'rxjs';
+import { TournamentService } from '../../services/tournament.service';
 
 const COIN_FLIP_SPEED = 100; // ms
 
@@ -17,20 +20,21 @@ export class NavBarComponent {
 	public coinText = signal('');
 
 	private _router: Router = inject(Router);
+	private _sTournament: TournamentService = inject(TournamentService);
 
-	public goHome(): void {
-		// Check if on the /tournament route
-		if (this._router.url === '/tournament') {
-			// If so, pop up a confirmation dialog
-			const confirmed = confirm('Are you sure you want to leave the tournament?');
-			if (confirmed) {
-				this._router.navigate(['/']);
-			} else {
-				return;
-			}
+	// Whether a tournament's contestants or play page is showing (unknown slugs are redirected home)
+	public onTournament = toSignal(
+		this._router.events.pipe(
+			filter(e => e instanceof NavigationEnd),
+			map(e => e.urlAfterRedirects.startsWith('/t/')),
+		),
+		{ initialValue: false },
+	);
+
+	public restart(): void {
+		if (confirm('Restart the tournament? All picks will be lost.')) {
+			this._sTournament.restart();
 		}
-
-		this._router.navigate(['/']);
 	}
 
 	public flipCoin(): void {

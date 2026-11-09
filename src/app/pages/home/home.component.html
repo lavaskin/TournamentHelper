@@ -6,7 +6,7 @@
 
 	<div class="flex col gap-1 center">
 		@for(t of tournaments; track t.slug) {
-			<app-button [label]="t.title" (click)="selectTournament(t)"></app-button>
+			<app-button [label]="t.title" [routerLink]="['/t', t.slug]"></app-button>
 		}
 	</div>
 </div>

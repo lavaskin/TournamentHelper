@@ -61,8 +61,26 @@ export function isBye(slot: BracketSlot): slot is typeof BYE {
 	return slot === BYE;
 }
 
+export function isContestant(slot: BracketSlot): slot is Contestant {
+	return slot !== null && !isBye(slot);
+}
+
 export function isByeMatch(match: Match): boolean {
 	return isBye(match.slots[0]) || isBye(match.slots[1]);
+}
+
+// Round-1 contestants in bracket order, without byes
+export function getDraw(bracket: Bracket): Contestant[] {
+	return bracket.rounds[0].flatMap(match => match.slots).filter(isContestant);
+}
+
+// Whether a bracket was drawn from exactly these contestants, so a saved bracket can be thrown away once the data changes
+export function isDrawnFrom(bracket: Bracket, contestants: Contestant[]): boolean {
+	const key = (c: Contestant) => JSON.stringify(c, Object.keys(c).sort());
+	const drawn = getDraw(bracket).map(key).sort();
+	const current = contestants.map(key).sort();
+
+	return drawn.length === current.length && drawn.every((k, i) => k === current[i]);
 }
 
 export function getMatch(bracket: Bracket, position: MatchPosition): Match {
@@ -73,7 +91,7 @@ export function getMatchWinner(match: Match): Contestant | null {
 	if (match.winner === null) return null;
 
 	const slot = match.slots[match.winner];
-	return slot === null || isBye(slot) ? null : slot;
+	return isContestant(slot) ? slot : null;
 }
 
 // The next match to vote on, in round order. Bye matches are decided when the bracket is created, so they're never returned.

@@ -1,4 +1,4 @@
-import { bracketSize, createBracket, getChampion, getMatch, getMatchWinner, getNextMatch, isBye, isByeMatch, pickWinner, seedOrder } from './bracket';
+import { bracketSize, createBracket, getChampion, getDraw, getMatch, getMatchWinner, getNextMatch, isBye, isByeMatch, isDrawnFrom, pickWinner, seedOrder } from './bracket';
 import { Bracket, SlotIndex } from './models/bracket.model';
 import { Contestant } from './models/contestant.model';
 
@@ -162,5 +162,41 @@ describe('pickWinner', () => {
 	it('refuses a match that is still waiting on an earlier one', () => {
 		const bracket = createBracket(makeContestants(4));
 		expect(() => pickWinner(bracket, { round: 1, match: 0 }, 0)).toThrow();
+	});
+});
+
+describe('getDraw', () => {
+	it('lists round-1 contestants in bracket order, without byes', () => {
+		const bracket = createBracket(makeContestants(3), false);
+
+		// Ranks [1, 4, 2, 3], with rank 4 a bye
+		expect(getDraw(bracket).map(c => c.name)).toEqual(['Contestant 1', 'Contestant 2', 'Contestant 3']);
+	});
+});
+
+describe('isDrawnFrom', () => {
+	it('matches the contestants a bracket was drawn from, in any order and after a save', () => {
+		const contestants = makeContestants(5, 2);
+		const saved: Bracket = JSON.parse(JSON.stringify(createBracket(contestants, true)));
+
+		expect(isDrawnFrom(saved, [...contestants].reverse())).toBe(true);
+	});
+
+	it('ignores the order of fields', () => {
+		const contestants = makeContestants(4);
+		const bracket = createBracket(contestants);
+		const reordered = contestants.map(({ name, thumbnailUrl }) => ({ thumbnailUrl, name }));
+
+		expect(isDrawnFrom(bracket, reordered)).toBe(true);
+	});
+
+	it('rejects added, removed or changed contestants', () => {
+		const contestants = makeContestants(4);
+		const bracket = createBracket(contestants);
+
+		expect(isDrawnFrom(bracket, makeContestants(5))).toBe(false);
+		expect(isDrawnFrom(bracket, makeContestants(3))).toBe(false);
+		expect(isDrawnFrom(bracket, contestants.map((c, i) => i === 0 ? { ...c, name: 'Renamed' } : c))).toBe(false);
+		expect(isDrawnFrom(bracket, contestants.map((c, i) => i === 0 ? { ...c, seed: 1 } : c))).toBe(false);
 	});
 });

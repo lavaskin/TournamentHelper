@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TournamentService } from '../../services/tournament.service';
-import { Router, RouterModule } from '@angular/router';
-import { Contestant } from '../../models/contestant.model';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ContestantComponent } from '../../components/contestant/contestant.component';
 import { ButtonComponent } from '../../components/button/button.component';
+import { getDraw } from '../../bracket';
 
 @Component({
 	selector: 'page-contestants',
@@ -14,21 +14,9 @@ import { ButtonComponent } from '../../components/button/button.component';
 	// styleUrl: './contestants.component.scss'
 })
 export class ContestantsComponent {
-	public contestants: Contestant[] = [];
-	public numContestants: number = 0;
-	public imageBg: boolean = false;
-
 	private _sTournament: TournamentService = inject(TournamentService);
-	private _router: Router = inject(Router);
 
-	ngOnInit() {
-		// Get contestants specified by the service
-		this.contestants = this._sTournament.getContestants();
-		this.numContestants = this.contestants.length;
-		this.imageBg = this._sTournament.imageBg;
-
-		if (this.contestants.length === 0) {
-			this._router.navigate(['/']);
-		}
-	}
+	// The route resolver opens the tournament before this page loads
+	public contestants = computed(() => getDraw(this._sTournament.bracket()!));
+	public imageBg = computed(() => this._sTournament.tournament()!.imageBg ?? false);
 }

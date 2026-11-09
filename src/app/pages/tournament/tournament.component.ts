@@ -1,12 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, linkedSignal } from '@angular/core';
 import { Contestant } from '../../models/contestant.model';
 import { ContestantComponent } from '../../components/contestant/contestant.component';
 import { CommonModule } from '@angular/common';
 import { TournamentService } from '../../services/tournament.service';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
-import { Bracket, MatchPosition } from '../../models/bracket.model';
-import { getChampion, getMatch, getNextMatch, pickWinner } from '../../bracket';
+import { Bracket } from '../../models/bracket.model';
+import { getChampion, getMatch, getNextMatch } from '../../bracket';
 
 @Component({
 	selector: 'page-tournament',
@@ -16,75 +16,50 @@ import { getChampion, getMatch, getNextMatch, pickWinner } from '../../bracket';
 	// styleUrl: './tournament.component.scss'
 })
 export class TournamentComponent {
-	private bracket: Bracket | null = null;
-	private position: MatchPosition | null = null;
-
-	public leftContestant: Contestant | null = null;
-	public rightContestant: Contestant | null = null;
-	public winner: Contestant | null = null;
-	public imageBg: boolean = false;
-
-	public leftSideSelected: boolean | null = null;
-
-	public round: number = 1;
-	public roundAddendum: string | null = null;
-
 	private _sTournament: TournamentService = inject(TournamentService);
-	private _router: Router = inject(Router);
 
-	ngOnInit() {
-		this.bracket = this._sTournament.createBracket();
-		this.imageBg = this._sTournament.imageBg;
+	// The route resolver opens the tournament before this page loads
+	private bracket = computed(() => this._sTournament.bracket()!);
+	private position = computed(() => getNextMatch(this.bracket()));
 
-		if (!this.bracket) {
-			this._router.navigate(['/']);
-			return;
-		}
+	public imageBg = computed(() => this._sTournament.tournament()!.imageBg ?? false);
+	public winner = computed(() => getChampion(this.bracket()));
 
-		this.showNextMatch();
-	}
+	// Bye matches are decided when the bracket is made, so both slots hold contestants here
+	private slots = computed(() => {
+		const position = this.position();
+		return position ? getMatch(this.bracket(), position).slots as [Contestant, Contestant] : null;
+	});
+	public leftContestant = computed(() => this.slots()?.[0] ?? null);
+	public rightContestant = computed(() => this.slots()?.[1] ?? null);
+
+	// Cleared whenever the bracket changes (a pick or a restart)
+	public leftSideSelected = linkedSignal<Bracket, boolean | null>({
+		source: this.bracket,
+		computation: () => null,
+	});
+
+	public round = computed(() => (this.position()?.round ?? 0) + 1);
+	public roundAddendum = computed(() => {
+		const position = this.position();
+		if (!position) return null;
+
+		const contestantsInRound = this.bracket().rounds[position.round].length * 2;
+		if (contestantsInRound === 8) return 'Quarters';
+		if (contestantsInRound === 4) return "Semi's";
+		if (contestantsInRound === 2) return 'Finals';
+		return null;
+	});
 
 	public handleVote(isLeftSide: boolean) {
-		if (isLeftSide === this.leftSideSelected) {
-			this.leftSideSelected = null;
-		} else {
-			this.leftSideSelected = isLeftSide;
-		}
+		this.leftSideSelected.update(selected => selected === isLeftSide ? null : isLeftSide);
 	}
 
 	public nextRound() {
-		if (this.leftSideSelected === null || !this.bracket || !this.position) return;
+		const position = this.position();
+		const leftSideSelected = this.leftSideSelected();
+		if (leftSideSelected === null || !position) return;
 
-		pickWinner(this.bracket, this.position, this.leftSideSelected ? 0 : 1);
-		this.leftSideSelected = null;
-		this.showNextMatch();
-	}
-
-	private showNextMatch() {
-		const bracket = this.bracket!;
-		this.position = getNextMatch(bracket);
-
-		if (!this.position) {
-			this.winner = getChampion(bracket);
-			return;
-		}
-
-		// Bye matches are decided when the bracket is made, so both slots hold contestants here
-		const [left, right] = getMatch(bracket, this.position).slots;
-		this.leftContestant = left as Contestant;
-		this.rightContestant = right as Contestant;
-
-		this.round = this.position.round + 1;
-
-		const contestantsInRound = bracket.rounds[this.position.round].length * 2;
-		if (contestantsInRound === 8) {
-			this.roundAddendum = 'Quarters';
-		} else if (contestantsInRound === 4) {
-			this.roundAddendum = "Semi's";
-		} else if (contestantsInRound === 2) {
-			this.roundAddendum = 'Finals';
-		} else {
-			this.roundAddendum = null;
-		}
+		this._sTournament.pickWinner(position, leftSideSelected ? 0 : 1);
 	}
 }
